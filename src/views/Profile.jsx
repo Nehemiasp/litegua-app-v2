@@ -52,9 +52,9 @@ function SaveBtn({ label = 'Guardar cambios' }) {
 
 function DatosPersonales({ onBack }) {
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Datos Personales" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {/* Avatar */}
         <div className="flex flex-col items-center gap-3 bg-white rounded-3xl p-6 border border-slate-100">
           <div className="relative">
@@ -83,9 +83,9 @@ function DatosPersonales({ onBack }) {
 
 function DatosFacturacion({ onBack }) {
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Datos de Facturación" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         <div className="bg-orange-50 border border-orange-100 rounded-2xl px-4 py-3 flex items-center gap-2.5">
           <AlertCircle size={14} className="text-orange-500 flex-shrink-0" />
           <p className="text-[11px] text-orange-700 font-medium">Estos datos aparecerán en tus facturas fiscales de Guatemala.</p>
@@ -121,9 +121,9 @@ function MetodosPago({ onBack }) {
     { type: 'Mastercard', last4: '8888', exp: '08/26', brand: '💳' },
   ]
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Métodos de Pago" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {/* Cards */}
         {cards.map((c, i) => (
           <div key={i} className="bg-white rounded-3xl border border-slate-100 px-4 py-3.5 flex items-center gap-3">
@@ -160,9 +160,9 @@ function MetodosPago({ onBack }) {
 
 function PreferenciasViaje({ onBack }) {
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Preferencias de Viaje" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {/* Seat preference */}
         <div className="bg-white rounded-3xl border border-slate-100 p-4">
           <p className="text-xs font-bold text-slate-500 mb-3 flex items-center gap-1.5">
@@ -220,9 +220,9 @@ function Notificaciones({ onBack }) {
     }
   ]
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Notificaciones" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {groups.map((group, gi) => (
           <div key={gi}>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">{group.title}</p>
@@ -249,9 +249,9 @@ function Notificaciones({ onBack }) {
 function SeguridadPrivacidad({ onBack }) {
   const [showPass, setShowPass] = useState(false)
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Seguridad y Privacidad" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {/* Change password */}
         <div className="bg-white rounded-3xl border border-slate-100 p-4 flex flex-col gap-3">
           <p className="text-sm font-bold text-slate-600 flex items-center gap-1.5 mb-1">
@@ -313,9 +313,9 @@ function CentroAyuda({ onBack }) {
   ]
   const [open, setOpen] = useState(null)
   return (
-    <div className="flex-1 flex flex-col bg-slate-50">
+    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Centro de Ayuda" onBack={onBack} />
-      <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-10">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
         {/* Contact buttons */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {[
@@ -440,8 +440,8 @@ export default function Profile({ navigate }) {
             </div>
 
             {/* ── Menu list ─────────────────────────── */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 pb-28 flex flex-col gap-2">
-              <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden">
+            <div className="flex-1 overflow-y-auto px-5 py-4 pb-36 flex flex-col gap-2">
+              <div className="bg-white rounded-3xl border border-slate-100">
                 {MENU_ITEMS.map((item, i) => {
                   const Icon = item.icon
                   return (
@@ -453,7 +453,7 @@ export default function Profile({ navigate }) {
                       onClick={() => setSubScreen(item.id)}
                       className={`w-full flex items-center gap-3.5 px-4 py-3.5 text-left hover:bg-slate-50 active:bg-slate-100 transition-colors duration-150 ${
                         i < MENU_ITEMS.length - 1 ? 'border-b border-slate-50' : ''
-                      }`}
+                      } ${i === 0 ? 'rounded-t-3xl' : ''} ${i === MENU_ITEMS.length - 1 ? 'rounded-b-3xl' : ''}`}
                     >
                       <div className={`w-9 h-9 rounded-xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
                         <Icon size={17} className={item.color} strokeWidth={1.8} />
