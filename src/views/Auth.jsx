@@ -161,7 +161,7 @@ function LoginScreen({ onBack, onRegister, onLogin }) {
 
         {/* Back */}
         <button onClick={onBack}
-          className="absolute top-12 left-5 w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
+          className="absolute top-5 left-5 w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
           <ArrowLeft size={16} className="text-white" />
         </button>
 
@@ -257,7 +257,7 @@ function RegisterScreen({ onBack, onLogin, onRegister }) {
         <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-green-500/10" />
 
         <button onClick={onBack}
-          className="absolute top-12 left-5 w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
+          className="absolute top-5 left-5 w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
           <ArrowLeft size={16} className="text-white" />
         </button>
 

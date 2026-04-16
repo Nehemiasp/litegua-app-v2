@@ -12,7 +12,7 @@ import {
 // ── Helpers ──────────────────────────────────────────────────
 function SubHeader({ title, onBack }) {
   return (
-    <div className="bg-white border-b border-slate-100 px-5 pt-12 pb-4 flex items-center gap-3 sticky top-0 z-10">
+    <div className="bg-white border-b border-slate-100 px-5 pt-5 pb-4 flex items-center gap-3 sticky top-0 z-10">
       <button onClick={onBack}
         className="w-9 h-9 rounded-full border-2 border-slate-200 flex items-center justify-center hover:bg-slate-50 flex-shrink-0 transition-colors">
         <ArrowLeft size={16} className="text-slate-500" />
@@ -54,7 +54,7 @@ function DatosPersonales({ onBack }) {
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Datos Personales" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {/* Avatar */}
         <div className="flex flex-col items-center gap-3 bg-white rounded-3xl p-6 border border-slate-100">
           <div className="relative">
@@ -82,10 +82,11 @@ function DatosPersonales({ onBack }) {
 }
 
 function DatosFacturacion({ onBack }) {
+  const [personType, setPersonType] = useState(0)
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Datos de Facturación" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         <div className="bg-orange-50 border border-orange-100 rounded-2xl px-4 py-3 flex items-center gap-2.5">
           <AlertCircle size={14} className="text-orange-500 flex-shrink-0" />
           <p className="text-[11px] text-orange-700 font-medium">Estos datos aparecerán en tus facturas fiscales de Guatemala.</p>
@@ -101,11 +102,11 @@ function DatosFacturacion({ onBack }) {
             <Building2 size={12} className="text-slate-400" /> Tipo de persona
           </p>
           {['Persona Individual', 'Persona Jurídica (empresa)'].map((opt, i) => (
-            <button key={i} className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left mb-2 last:mb-0 transition-all ${i === 0 ? 'border-green-500 bg-green-50' : 'border-slate-100 bg-white'}`}>
-              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${i === 0 ? 'border-green-500 bg-green-500' : 'border-slate-300'}`}>
-                {i === 0 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+            <button key={i} onClick={() => setPersonType(i)} className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left mb-2 last:mb-0 transition-all ${i === personType ? 'border-green-500 bg-green-50' : 'border-slate-100 bg-white'}`}>
+              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${i === personType ? 'border-green-500 bg-green-500' : 'border-slate-300'}`}>
+                {i === personType && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
               </div>
-              <span className={`text-sm font-semibold ${i === 0 ? 'text-green-800' : 'text-slate-600'}`}>{opt}</span>
+              <span className={`text-sm font-semibold ${i === personType ? 'text-green-800' : 'text-slate-600'}`}>{opt}</span>
             </button>
           ))}
         </div>
@@ -123,7 +124,7 @@ function MetodosPago({ onBack }) {
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Métodos de Pago" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {/* Cards */}
         {cards.map((c, i) => (
           <div key={i} className="bg-white rounded-3xl border border-slate-100 px-4 py-3.5 flex items-center gap-3">
@@ -159,39 +160,42 @@ function MetodosPago({ onBack }) {
 }
 
 function PreferenciasViaje({ onBack }) {
+  const [seat, setSeat] = useState(0)
+  const [toggles, setToggles] = useState([true, true, false])
+  const toggleItem = (i) => setToggles(t => t.map((v, idx) => idx === i ? !v : v))
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Preferencias de Viaje" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {/* Seat preference */}
         <div className="bg-white rounded-3xl border border-slate-100 p-4">
           <p className="text-xs font-bold text-slate-500 mb-3 flex items-center gap-1.5">
             <Sliders size={12} /> Asiento preferido
           </p>
           {['Ventana', 'Pasillo', 'Sin preferencia'].map((opt, i) => (
-            <button key={i} className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left mb-2 last:mb-0 transition-all ${i === 0 ? 'border-green-500 bg-green-50' : 'border-slate-100 bg-white'}`}>
-              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${i === 0 ? 'border-green-500 bg-green-500' : 'border-slate-300'}`}>
-                {i === 0 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+            <button key={i} onClick={() => setSeat(i)} className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left mb-2 last:mb-0 transition-all ${i === seat ? 'border-green-500 bg-green-50' : 'border-slate-100 bg-white'}`}>
+              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${i === seat ? 'border-green-500 bg-green-500' : 'border-slate-300'}`}>
+                {i === seat && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
               </div>
-              <span className={`text-sm font-semibold ${i === 0 ? 'text-green-800' : 'text-slate-600'}`}>{opt}</span>
+              <span className={`text-sm font-semibold ${i === seat ? 'text-green-800' : 'text-slate-600'}`}>{opt}</span>
             </button>
           ))}
         </div>
         {/* Toggle prefs */}
         <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden">
           {[
-            { label: 'Recordatorios de viaje', sub: 'Avisos 24h y 1h antes', on: true },
-            { label: 'Factura automática', sub: 'Al confirmar cada reserva', on: true },
-            { label: 'Modo sin conexión', sub: 'Descarga boletos automáticamente', on: false },
+            { label: 'Recordatorios de viaje', sub: 'Avisos 24h y 1h antes' },
+            { label: 'Factura automática', sub: 'Al confirmar cada reserva' },
+            { label: 'Modo sin conexión', sub: 'Descarga boletos automáticamente' },
           ].map((item, i, arr) => (
             <div key={i} className={`flex items-center justify-between px-4 py-3.5 ${i < arr.length-1 ? 'border-b border-slate-50' : ''}`}>
               <div>
                 <p className="text-sm font-semibold text-slate-800">{item.label}</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">{item.sub}</p>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ${item.on ? 'bg-green-500' : 'bg-slate-200'} relative`}>
-                <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${item.on ? 'translate-x-5' : 'translate-x-0.5'}`} />
-              </div>
+              <button onClick={() => toggleItem(i)} className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ${toggles[i] ? 'bg-green-500' : 'bg-slate-200'} relative`}>
+                <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${toggles[i] ? 'translate-x-5' : 'translate-x-0.5'}`} />
+              </button>
             </div>
           ))}
         </div>
@@ -202,27 +206,30 @@ function PreferenciasViaje({ onBack }) {
 }
 
 function Notificaciones({ onBack }) {
+  const [toggles, setToggles] = useState({ conf: true, rec: true, cambios: true, ofertas: false, nove: false })
+  const keys = ['conf','rec','cambios','ofertas','nove']
+  const toggle = (k) => setToggles(t => ({ ...t, [k]: !t[k] }))
   const groups = [
     {
       title: 'Viajes y reservas',
       items: [
-        { label: 'Confirmación de reserva', sub: 'Al completar una reservación', on: true },
-        { label: 'Recordatorio de salida', sub: '24 horas antes', on: true },
-        { label: 'Cambios de itinerario', sub: 'Modificaciones en tu viaje', on: true },
+        { label: 'Confirmación de reserva', sub: 'Al completar una reservación', key: 'conf' },
+        { label: 'Recordatorio de salida', sub: '24 horas antes', key: 'rec' },
+        { label: 'Cambios de itinerario', sub: 'Modificaciones en tu viaje', key: 'cambios' },
       ]
     },
     {
       title: 'Promociones',
       items: [
-        { label: 'Ofertas y descuentos', sub: 'Promociones personalizadas', on: false },
-        { label: 'Novedades de Litegua', sub: 'Nuevos tours y destinos', on: false },
+        { label: 'Ofertas y descuentos', sub: 'Promociones personalizadas', key: 'ofertas' },
+        { label: 'Novedades de Litegua', sub: 'Nuevos tours y destinos', key: 'nove' },
       ]
     }
   ]
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Notificaciones" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {groups.map((group, gi) => (
           <div key={gi}>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">{group.title}</p>
@@ -233,9 +240,9 @@ function Notificaciones({ onBack }) {
                     <p className="text-sm font-semibold text-slate-800">{item.label}</p>
                     <p className="text-[11px] text-slate-400 mt-0.5">{item.sub}</p>
                   </div>
-                  <div className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ml-3 ${item.on ? 'bg-green-500' : 'bg-slate-200'} relative`}>
-                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${item.on ? 'translate-x-5' : 'translate-x-0.5'}`} />
-                  </div>
+                  <button onClick={() => toggle(item.key)} className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ml-3 ${toggles[item.key] ? 'bg-green-500' : 'bg-slate-200'} relative`}>
+                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${toggles[item.key] ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                  </button>
                 </div>
               ))}
             </div>
@@ -248,10 +255,11 @@ function Notificaciones({ onBack }) {
 
 function SeguridadPrivacidad({ onBack }) {
   const [showPass, setShowPass] = useState(false)
+  const [twoFA, setTwoFA] = useState(true)
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Seguridad y Privacidad" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {/* Change password */}
         <div className="bg-white rounded-3xl border border-slate-100 p-4 flex flex-col gap-3">
           <p className="text-sm font-bold text-slate-600 flex items-center gap-1.5 mb-1">
@@ -274,20 +282,20 @@ function SeguridadPrivacidad({ onBack }) {
           <SaveBtn label="Actualizar contraseña" />
         </div>
         {/* Privacy toggles */}
-        <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden">
+        <div className="bg-white rounded-3xl border border-slate-100">
           {[
-            { label: 'Autenticación de 2 pasos', sub: 'SMS o correo electrónico', on: true },
-            { label: 'Sesiones activas', sub: '1 dispositivo conectado', on: null },
+            { label: 'Autenticación de 2 pasos', sub: 'SMS o correo electrónico', toggle: true },
+            { label: 'Sesiones activas', sub: '1 dispositivo conectado', toggle: false },
           ].map((item, i, arr) => (
             <div key={i} className={`flex items-center justify-between px-4 py-3.5 ${i < arr.length-1 ? 'border-b border-slate-50' : ''}`}>
               <div>
                 <p className="text-sm font-semibold text-slate-800">{item.label}</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">{item.sub}</p>
               </div>
-              {item.on !== null ? (
-                <div className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ${item.on ? 'bg-green-500' : 'bg-slate-200'} relative`}>
-                  <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${item.on ? 'translate-x-5' : 'translate-x-0.5'}`} />
-                </div>
+              {item.toggle ? (
+                <button onClick={() => setTwoFA(v => !v)} className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ${twoFA ? 'bg-green-500' : 'bg-slate-200'} relative`}>
+                  <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${twoFA ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                </button>
               ) : (
                 <ChevronRight size={15} className="text-slate-300" />
               )}
@@ -315,7 +323,7 @@ function CentroAyuda({ onBack }) {
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
       <SubHeader title="Centro de Ayuda" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-24">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
         {/* Contact buttons */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {[
@@ -440,7 +448,7 @@ export default function Profile({ navigate }) {
             </div>
 
             {/* ── Menu list ─────────────────────────── */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 pb-36 flex flex-col gap-2">
+            <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4 pb-20 flex flex-col gap-2">
               <div className="bg-white rounded-3xl border border-slate-100">
                 {MENU_ITEMS.map((item, i) => {
                   const Icon = item.icon
