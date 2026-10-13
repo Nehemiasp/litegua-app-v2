@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Package, Search, Calculator, MapPin, Clock, CheckCircle, Truck, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Package, Search, Calculator, MapPin, Clock, CheckCircle, Truck, AlertCircle } from 'lucide-react'
 
 // ─── Mock tracking result ────────────────────────────────────
 const MOCK_STATUS = {
@@ -23,7 +23,7 @@ const MOCK_STATUS = {
   },
 }
 
-export default function Lex() {
+export default function Lex({ navigate, goBack }) {
   const [guide, setGuide] = useState('')
   const [result, setResult] = useState(null)
   const [notFound, setNotFound] = useState(false)
@@ -42,10 +42,16 @@ export default function Lex() {
   return (
     <div className="flex-1 flex flex-col bg-slate-50">
       {/* Header */}
-      <div className="bg-white px-5 pt-5 pb-5 border-b border-slate-100">
-        <p className="text-xs font-semibold text-green-600 uppercase tracking-widest">Litegua Express</p>
-        <h1 className="text-2xl font-extrabold text-slate-900 mt-0.5">LEX</h1>
-        <p className="text-xs text-slate-400 mt-0.5">Encomiendas y paquetería a nivel nacional</p>
+      <div className="bg-white px-4 pt-4 pb-5 border-b border-slate-100 flex items-start gap-3">
+        <button onClick={goBack}
+          className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors flex-shrink-0 mt-0.5">
+          <ArrowLeft size={20} className="text-slate-700" />
+        </button>
+        <div>
+          <p className="text-xs font-semibold text-green-600 uppercase tracking-widest">Litegua Express</p>
+          <h1 className="text-2xl font-extrabold text-slate-900 mt-0.5">LEX</h1>
+          <p className="text-xs text-slate-400 mt-0.5">Encomiendas y paquetería a nivel nacional</p>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-5 pb-24 flex flex-col gap-5">
@@ -181,13 +187,15 @@ export default function Lex() {
             {[
               {
                 label: 'Cotizar envío',
-                desc: 'Calcula el costo de tu paquete',
+                view: 'lexQuote',
+                desc: 'Solicita el costo de tu paquete',
                 icon: Calculator,
                 color: 'text-purple-500',
                 bg: 'bg-purple-50',
               },
               {
                 label: 'Agencias LEX',
+                view: 'lexAgencies',
                 desc: 'Encuentra tu punto más cercano',
                 icon: MapPin,
                 color: 'text-blue-500',
@@ -196,6 +204,7 @@ export default function Lex() {
             ].map((action) => (
               <motion.button
                 key={action.label}
+                onClick={() => navigate(action.view)}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex flex-col items-start gap-2 text-left hover:shadow-md transition-all duration-200"
