@@ -14,7 +14,7 @@ const UPCOMING = [
     time: '4:00 AM',
     seat: 'Butaca 38',
     agency: 'Centra Norte',
-    price: 'Q 250.88',
+    price: 'Q 200.00',
   },
   {
     id: 'LX-20260512-52',
@@ -25,15 +25,15 @@ const UPCOMING = [
     time: '6:00 AM',
     seat: 'Butaca 52',
     agency: 'Centra Norte',
-    price: 'Q 181.89',
+    price: 'Q 145.00',
   },
 ]
 
 const PAST = [
-  { id: 'LX-20261201-07', date: '01 Dic 2025', from: 'Ciudad Capital', to: 'Puerto Barrios', service: 'Primera Plus', price: 'Q 250.88' },
-  { id: 'LX-20261115-22', date: '15 Nov 2025', from: 'Ciudad Capital', to: 'Rio Hondo',      service: 'Primera Plus', price: 'Q 181.89' },
-  { id: 'LX-20261003-33', date: '03 Oct 2025', from: 'Ciudad Capital', to: 'Morales',        service: 'Primera Plus', price: 'Q 181.89' },
-  { id: 'LX-20260820-05', date: '20 Ago 2025', from: 'Puerto Barrios', to: 'Ciudad Capital', service: 'Primera Plus', price: 'Q 250.88' },
+  { id: 'LX-20261201-07', date: '01 Dic 2025', from: 'Ciudad Capital', to: 'Puerto Barrios', service: 'Primera Plus', price: 'Q 200.00' },
+  { id: 'LX-20261115-22', date: '15 Nov 2025', from: 'Ciudad Capital', to: 'Rio Hondo',      service: 'Primera Plus', price: 'Q 145.00' },
+  { id: 'LX-20261003-33', date: '03 Oct 2025', from: 'Ciudad Capital', to: 'Morales',        service: 'Primera Plus', price: 'Q 145.00' },
+  { id: 'LX-20260820-05', date: '20 Ago 2025', from: 'Puerto Barrios', to: 'Ciudad Capital', service: 'Primera Plus', price: 'Q 200.00' },
 ]
 
 // ─── QR ────────────────────────────────────────────────────

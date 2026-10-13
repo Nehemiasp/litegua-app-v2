@@ -128,7 +128,7 @@ export default function AgencyDetail({ agency, goBack }) {
     <div className="flex-1 flex flex-col bg-white">
 
       {/* ── Hero Image ─────────────────────────────── */}
-      <div className="relative" style={{ height: 260 }}>
+      <div className="relative" style={{ height: 280 }}>
         <img
           src={agency.image}
           alt={agency.name}
@@ -148,7 +148,7 @@ export default function AgencyDetail({ agency, goBack }) {
         </div>
 
         {/* Name overlay */}
-        <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
+        <div className="absolute bottom-0 left-0 right-0 px-5 pb-10">
           {agency.badge && (
             <span className="inline-block bg-green-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full mb-2 uppercase tracking-wider">
               {agency.badge}
@@ -170,7 +170,7 @@ export default function AgencyDetail({ agency, goBack }) {
         style={{ borderRadius: '24px 24px 0 0', marginTop: -20, paddingBottom: 120 }}
       >
         {/* Contact actions */}
-        <div style={{ padding: '24px 20px 0' }}>
+        <div style={{ padding: '28px 20px 0' }}>
           <div className="flex gap-2.5">
             <ContactBtn
               icon={Phone}

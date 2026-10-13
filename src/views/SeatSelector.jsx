@@ -34,7 +34,7 @@ function SeatBtn({ num, status, onToggle }) {
 // ── Deck toggle ────────────────────────────────────────────
 function DeckToggle({ active, onChange }) {
   return (
-    <div className="flex bg-slate-100 rounded-2xl p-1 gap-1">
+    <div className="flex w-full bg-slate-100 rounded-2xl p-1 gap-1">
       {[
         { key: 'upper', label: 'Planta Alta', icon: ChevronUp },
         { key: 'lower', label: 'Planta Baja', icon: ChevronDown },
@@ -43,7 +43,7 @@ function DeckToggle({ active, onChange }) {
           key={key}
           layout
           onClick={() => onChange(key)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border-none text-xs font-bold transition-all cursor-pointer ${
+          className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border-none text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
             active === key
               ? 'bg-green-600 text-white shadow-md shadow-green-600/30'
               : 'bg-transparent text-slate-400'
@@ -80,14 +80,14 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
           <button onClick={goBack} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
             <ArrowLeft size={20} className="text-slate-700" />
           </button>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <h1 className="text-base font-extrabold text-slate-900">Seleccionar Asiento</h1>
-            <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-400">
-              <Clock size={10} className="text-green-600" />
-              <span>4:00 a.m.</span>
+            <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-400 min-w-0">
+              <Clock size={10} className="text-green-600 flex-shrink-0" />
+              <span className="whitespace-nowrap">4:00 a.m.</span>
               <span>·</span>
-              <MapPin size={10} />
-              <span>{searchParams?.origin || 'Ciudad Capital'} a {searchParams?.destination || 'Puerto Barrios'}</span>
+              <MapPin size={10} className="flex-shrink-0" />
+              <span className="truncate">{searchParams?.origin || 'Ciudad Capital'} a {searchParams?.destination || 'Puerto Barrios'}</span>
             </div>
           </div>
           <div className="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center">
@@ -96,9 +96,9 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
         </div>
 
         {/* Deck toggle + legend */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2.5">
           <DeckToggle active={activeDeck} onChange={setActiveDeck} />
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-5">
             {[
               { bg: 'bg-green-50 border border-green-500', label: 'Libre' },
               { bg: 'bg-green-600', label: 'Tuyo' },
@@ -153,7 +153,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
               </div>
 
               {/* Column labels */}
-              <div style={{ display: 'flex', alignItems: 'center', padding: '10px 16px 4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px 16px 4px' }}>
                 {['A', 'B', null, 'C', 'D'].map((lbl, i) => (
                   <div key={i} style={{
                     width: lbl ? 50 : 28,
@@ -168,12 +168,12 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
               </div>
 
               {/* Seat rows */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 7, padding: '6px 16px 20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7, padding: '6px 16px 20px' }}>
                 {Array.from({ length: deck.rows }, (_, row) => {
                   const o = deck.offset
                   const [n1, n2, n3, n4] = [row*4+1+o, row*4+2+o, row*4+3+o, row*4+4+o]
                   return (
-                    <div key={row} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div key={row} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
                       <SeatBtn num={n1} status={getSeatStatus(n1)} onToggle={toggleSeat} />
                       <SeatBtn num={n2} status={getSeatStatus(n2)} onToggle={toggleSeat} />
 
@@ -193,7 +193,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
                 })}
               </div>
             </div>
-            <div style={{ height: 130 }} />
+            <div style={{ height: 150 }} />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -206,8 +206,8 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: 'spring', damping: 26, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-100"
-            style={{ padding: '14px 20px 32px', zIndex: 20 }}
+            className="fixed bottom-4 inset-x-4 mx-auto bg-white border border-slate-100 rounded-3xl shadow-2xl shadow-slate-900/15"
+            style={{ maxWidth: 416, padding: '14px 16px 16px', zIndex: 20, marginBottom: 'env(safe-area-inset-bottom)' }}
           >
             <div className="flex items-center justify-between mb-3">
               <div>
@@ -229,7 +229,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
             <motion.button
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate('checkout')}
-              className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-sm shadow-lg shadow-green-600/25 transition-colors"
+              className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-sm transition-colors"
             >
               Registrar viajeros
             </motion.button>

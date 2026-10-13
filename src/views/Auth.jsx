@@ -56,7 +56,7 @@ function WelcomeScreen({ onEmail, onGuest }) {
     <motion.div key="welcome" {...slideUp} className="flex-1 flex flex-col overflow-hidden">
 
       {/* ── Hero ── */}
-      <div className="relative flex-shrink-0" style={{ height: '55%' }}>
+      <div className="relative flex-shrink-0" style={{ height: '38dvh', minHeight: 190 }}>
         {/* Background image */}
         <img
           src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&h=700&fit=crop&q=90"
@@ -67,7 +67,7 @@ function WelcomeScreen({ onEmail, onGuest }) {
         <div className="absolute inset-0 bg-black/40" />
 
         {/* Logo chip */}
-        <div className="absolute top-14 left-6 flex items-center gap-2.5">
+        <div className="absolute top-10 left-6 flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center">
             <span className="text-white font-black text-base">L</span>
           </div>
@@ -84,7 +84,7 @@ function WelcomeScreen({ onEmail, onGuest }) {
       </div>
 
       {/* ── Action panel ── */}
-      <div className="flex-1 bg-white px-6 pt-7 pb-8 flex flex-col gap-4">
+      <div className="flex-1 bg-white px-6 pt-6 pb-6 flex flex-col gap-3.5">
 
         {/* Heading */}
         <div>
@@ -123,7 +123,7 @@ function WelcomeScreen({ onEmail, onGuest }) {
           Continuar como invitado
         </motion.button>
 
-        <p className="text-center text-[10px] text-slate-300 mt-auto">
+        <p className="text-center text-[10px] text-slate-400 mt-auto pt-2">
           Al continuar aceptas nuestros{' '}
           <span className="text-green-600 font-semibold">Términos de uso</span>
         </p>
