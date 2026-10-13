@@ -80,7 +80,7 @@ export default function SearchResults({ searchParams, goBack, navigate }) {
             </div>
             <div className="min-w-0">
               <p className="text-sm font-bold text-slate-900 truncate">
-                {searchParams.origin || 'Ciudad de Guatemala'} &mdash; {searchParams.destination || 'Puerto Barrios'}
+                {searchParams.origin || 'Ciudad Capital'} a {searchParams.destination || 'Puerto Barrios'}
               </p>
               <p className="text-[11px] text-slate-400 font-medium mt-0.5">
                 {formatDate(searchParams.date)}{searchParams.date && searchParams.time ? ' · ' : ''}{formatTime(searchParams.time)}

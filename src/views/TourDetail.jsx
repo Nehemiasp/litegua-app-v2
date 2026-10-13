@@ -9,39 +9,25 @@ import {
 // ─── Data ──────────────────────────────────────────────────
 const ITINERARIES = {
   1: [
-    { time: '5:00 AM', title: 'Salida desde Guatemala City', desc: 'Partimos desde Centra Norte en autobús de primera clase.' },
-    { time: '10:00 AM', title: 'Llegada a Rio Dulce', desc: 'Desayuno incluido en restaurante local a orillas del río.' },
-    { time: '11:00 AM', title: 'Recorrido en lancha por el río', desc: 'Navegamos 30 km a través de cañones, manglares y vida silvestre.' },
-    { time: '1:00 PM', title: 'Castillo de San Felipe', desc: 'Visita guiada al castillo colonial del siglo XVII. Tiempo libre.' },
-    { time: '3:00 PM', title: 'Regreso a Guatemala', desc: 'Viaje de retorno con parada opcional en el Rancho.' },
+    { time: 'Día 1, 5:00 AM', title: 'Salida desde Ciudad Capital', desc: 'Partimos desde Centra Norte hacia el departamento de Petén.' },
+    { time: 'Día 1, 3:00 PM', title: 'Llegada a Flores', desc: 'Traslado al hotel y tiempo libre en la isla de Flores.' },
+    { time: 'Día 2, 6:00 AM', title: 'Parque Nacional Tikal', desc: 'Recorrido guiado por los templos y plazas de la antigua ciudad maya.' },
+    { time: 'Día 2, 1:00 PM', title: 'Almuerzo y tiempo libre', desc: 'Comida típica de la región antes de iniciar el regreso.' },
+    { time: 'Día 2, 3:00 PM', title: 'Regreso a Ciudad Capital', desc: 'Viaje de retorno en autobús de primera clase.' },
   ],
   2: [
-    { time: '6:00 AM', title: 'Salida hacia Zacapa', desc: 'Autobús directo con A/C desde Centra Norte.' },
-    { time: '9:00 AM', title: 'Llegada a Valle Dorado', desc: 'Check-in y acceso a todas las instalaciones.' },
-    { time: '9:30 AM', title: 'Día libre en el parque', desc: 'Disfruta piscinas, toboganes, zona de olas y más.' },
-    { time: '4:00 PM', title: 'Almuerzo incluido', desc: 'Buffet completo en el restaurante principal.' },
-    { time: '5:00 PM', title: 'Regreso a Guatemala', desc: 'Bus de retorno con llegada a las 8:00 PM aprox.' },
-  ],
-  3: [
-    { time: '4:00 AM', title: 'Salida nocturna', desc: 'Partimos temprano para aprovechar el día completo.' },
-    { time: '9:00 AM', title: 'Grutas de Lanquín', desc: 'Exploración guiada de las cuevas con ríos subterráneos.' },
-    { time: '11:00 AM', title: 'Semuc Champey', desc: 'Las famosas piscinas naturales de agua turquesa.' },
-    { time: '2:00 PM', title: 'Almuerzo en Lanquín', desc: 'Comida típica incluida en restaurante local.' },
-    { time: '3:00 PM', title: 'Regreso a Guatemala', desc: 'Viaje de retorno, llegada aproximada 9:00 PM.' },
-  ],
-  4: [
-    { time: '5:30 AM', title: 'Salida hacia Izabal', desc: 'Viaje directo al lago más grande de Guatemala.' },
-    { time: '9:00 AM', title: 'Tour en lancha por el lago', desc: 'Navegación por el Lago de Izabal con guía.' },
-    { time: '11:00 AM', title: 'Cañón del Boquerón', desc: 'Recorrido por el impresionante cañón en lancha.' },
-    { time: '1:00 PM', title: 'Almuerzo a orillas del lago', desc: 'Mariscos y platillos típicos de la región.' },
-    { time: '3:00 PM', title: 'Regreso a Guatemala', desc: 'Retorno cómodo en autobús de primera.' },
-  ],
-  5: [
     { time: '7:00 AM', title: 'Salida hacia Antigua', desc: 'Autobús turístico con guía bilingüe desde la capital.' },
     { time: '8:30 AM', title: 'City Walk por Antigua', desc: 'Parque Central, Catedral y Arco de Santa Catalina.' },
     { time: '11:00 AM', title: 'Cerro de la Cruz', desc: 'Vista panorámica de Antigua y el Volcán de Agua.' },
     { time: '1:00 PM', title: 'Tiempo libre en el mercado', desc: 'Artesanías, café guatemalteco y gastronomía local.' },
     { time: '4:00 PM', title: 'Regreso a Guatemala', desc: 'Llegada aproximada a las 5:30 PM.' },
+  ],
+  3: [
+    { time: '7:00 AM', title: 'Salida hacia Panajachel', desc: 'Autobús turístico con guía desde la capital.' },
+    { time: '10:00 AM', title: 'Llegada a Panajachel', desc: 'Paseo por el muelle y abordaje de la lancha.' },
+    { time: '11:00 AM', title: 'Recorrido en lancha', desc: 'Visita a los pueblos a orillas del lago, como San Juan La Laguna y Santiago Atitlán.' },
+    { time: '1:00 PM', title: 'Almuerzo con vista al lago', desc: 'Platillos típicos en un restaurante frente al lago.' },
+    { time: '4:00 PM', title: 'Regreso a Guatemala', desc: 'Viaje de retorno con llegada aproximada a las 8:00 PM.' },
   ],
 }
 
@@ -56,15 +42,6 @@ const INCLUDES = [
   { icon: Utensils, label: 'Almuerzo incluido' },
   { icon: Shield, label: 'Seguro de viaje' },
   { icon: Camera, label: 'Guía turístico' },
-]
-
-const GALLERY_IMAGES = [
-  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=300&fit=crop',
-  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400&h=300&fit=crop',
-  'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=400&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=300&fit=crop',
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=500&fit=crop',
 ]
 
 function getNextDays() {
@@ -193,9 +170,9 @@ export default function TourDetail({ tour, goBack, navigate }) {
   const [activeTab, setActiveTab] = useState('info')
   const [sliderIndex, setSliderIndex] = useState(null) // null = closed
 
-  const allPhotos = [tour?.image, ...GALLERY_IMAGES].filter(Boolean)
+  const allPhotos = [tour?.image, ...(tour?.gallery || [])].filter(Boolean)
 
-  const itinerary = ITINERARIES[tour.id] || ITINERARIES[1]
+  const itinerary = ITINERARIES[tour.id] || ITINERARIES[2]
   const tabs = [
     { id: 'info', label: 'Descripción' },
     { id: 'itinerary', label: 'Itinerario' },
@@ -208,7 +185,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
       {/* ── Hero Image ──────────────────────────────── */}
       <div className="relative" style={{ height: 280 }}>
         <img src={tour.image} alt={tour.name} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Top bar */}
         <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 pt-12">
@@ -257,7 +234,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
           {/* Quick stats */}
           <div className="flex border-b border-slate-100" style={{ padding: '28px 20px 0' }}>
             {[
-              { icon: Clock, label: '1 día', sub: 'Duración' },
+              { icon: Clock, label: `${tour.duration} día${tour.duration > 1 ? 's' : ''}`, sub: 'Duración' },
               { icon: Users, label: 'Grupo', sub: 'Máx. 20 pax' },
               { icon: Calendar, label: 'Todo el año', sub: 'Disponibilidad' },
             ].map(({ icon: Icon, label, sub }) => (
@@ -300,7 +277,9 @@ export default function TourDetail({ tour, goBack, navigate }) {
                   cómoda e inolvidable. El transporte en autobús de primera clase con A/C incluye Wi-Fi gratuito.
                 </p>
 
-                {/* Inline photo gallery — tappable, opens slider */}
+                {/* Inline photo gallery: tappable, opens slider */}
+                {allPhotos.length > 1 && (
+                <>
                 <h2 className="text-sm font-bold text-slate-900 mt-5 mb-3">Fotos del tour</h2>
                 <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', marginInline: -20 }}>
                   <div style={{ display: 'inline-flex', gap: 8, paddingInline: 20, paddingBottom: 4 }}>
@@ -317,6 +296,8 @@ export default function TourDetail({ tour, goBack, navigate }) {
                     ))}
                   </div>
                 </div>
+                </>
+                )}
 
                 <h2 className="text-sm font-bold text-slate-900 mt-5 mb-3">¿Qué incluye?</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
@@ -343,7 +324,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
                     <MapPin size={12} className="text-green-600" /> Punto de encuentro
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Terminal Litegua — Centra Norte, Zona 17, Ciudad de Guatemala. Presentarse 20 min antes de la salida.
+                    Terminal Litegua Centra Norte, Zona 17, Ciudad de Guatemala. Presentarse 20 min antes de la salida.
                   </p>
                 </div>
               </motion.div>
@@ -352,7 +333,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
             {activeTab === 'itinerary' && (
               <motion.div key="itinerary" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }} className="p-5">
-                <p className="text-xs text-slate-400 mb-5">Itinerario referencial — puede variar según condiciones del día.</p>
+                <p className="text-xs text-slate-400 mb-5">Itinerario referencial, puede variar según condiciones del día.</p>
                 <div className="relative">
                   <div className="absolute bg-slate-100" style={{ left: 15, top: 16, bottom: 16, width: 2 }} />
                   {itinerary.map((step, i) => (
@@ -428,14 +409,13 @@ export default function TourDetail({ tour, goBack, navigate }) {
         </div>
       </div>
 
-      {/* ── Sticky Booking Bar ─────────────────────── */}
+      {/* ── Sticky Quote Bar ───────────────────────── */}
       <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-100"
         style={{ padding: '14px 20px 30px' }}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] text-slate-400 font-medium">Precio por persona</p>
-            <p className="text-2xl font-extrabold text-slate-900 leading-tight">{tour.price}</p>
-            <p className="text-[10px] text-green-600 font-semibold">Todo incluido</p>
+            <p className="text-sm font-extrabold text-slate-900 leading-tight">Solicita tu cotización</p>
+            <p className="text-[11px] text-slate-400 font-medium mt-0.5">Te respondemos según tu fecha y grupo</p>
           </div>
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -443,7 +423,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
             onClick={() => navigate('tourBooking')}
             className="bg-green-600 text-white font-extrabold text-sm px-7 py-4 rounded-2xl shadow-lg shadow-green-600/25 hover:bg-green-700 transition-colors"
           >
-            Reservar ahora
+            Cotizar
           </motion.button>
         </div>
       </div>

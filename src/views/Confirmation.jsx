@@ -21,10 +21,10 @@ function makeRef(seats) {
 // Rendered off-screen, captured by html2canvas, then saved as PDF
 function PdfTemplate({ searchParams, selectedSeats, totalAmount, bookingCode }) {
   const sortedSeats = [...selectedSeats].sort((a, b) => a - b)
-  const seatLabel = sortedSeats.map(s => `#${s}`).join(', ') || '#–'
+  const seatLabel = sortedSeats.map(s => `#${s}`).join(', ') || '#'
   const qrData = JSON.stringify({
     code: bookingCode,
-    route: `${searchParams.origin || 'Guatemala'} → ${searchParams.destination || 'Puerto Barrios'}`,
+    route: `${searchParams.origin || 'Ciudad Capital'} a ${searchParams.destination || 'Puerto Barrios'}`,
     date: formatDate(searchParams.date),
     seats: seatLabel,
     total: `Q ${totalAmount.toFixed(2)}`,
@@ -56,7 +56,7 @@ function PdfTemplate({ searchParams, selectedSeats, totalAmount, bookingCode }) 
 
       {/* == ROUTE BANNER ====================================== */}
       <div style={{
-        background: 'linear-gradient(135deg, #15803d 0%, #16a34a 60%, #22c55e 100%)',
+        background: '#16a34a',
         borderRadius: 14,
         padding: '20px 28px',
         display: 'flex',
@@ -67,12 +67,11 @@ function PdfTemplate({ searchParams, selectedSeats, totalAmount, bookingCode }) 
         <div>
           <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 600 }}>Origen</div>
           <div style={{ fontSize: 24, fontWeight: 900, color: '#ffffff', marginTop: 4, letterSpacing: -0.5 }}>
-            {searchParams.origin || 'Ciudad de Guatemala'}
+            {searchParams.origin || 'Ciudad Capital'}
           </div>
         </div>
         <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.8)' }}>
-          <div style={{ fontSize: 24 }}>→</div>
-          <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, marginTop: 4 }}>Primera Plus</div>
+          <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1 }}>Primera Plus</div>
         </div>
         <div style={{ textAlign: 'right' }}>
           <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 600 }}>Destino</div>
@@ -94,7 +93,7 @@ function PdfTemplate({ searchParams, selectedSeats, totalAmount, bookingCode }) 
             ['Asiento(s)',      seatLabel],
             ['Pasajero',       'Nehemías Pérez'],
             ['Clase de servicio', 'Primera Plus'],
-            ['Punto de salida', 'Terminal Litegua — Centra Norte, Zona 17'],
+            ['Punto de salida', 'Terminal Litegua Centra Norte, Zona 17'],
           ].map(([label, value], i, arr) => (
             <div key={label} style={{
               display: 'flex',
@@ -178,7 +177,7 @@ function PdfTemplate({ searchParams, selectedSeats, totalAmount, bookingCode }) 
       }}>
         <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 10 }}>© {new Date().getFullYear()} Litegua · ¡Seguro llegas bien!</div>
         <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 10 }}>Call Center: (502) 2326-9595 · WhatsApp: 5200-1838</div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 10 }}>Lunes–Viernes 7:00–18:00 · Sáb–Dom 7:00–17:00</div>
+        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 10 }}>Lunes a Viernes 7:00 a 18:00 · Sáb y Dom 7:00 a 17:00</div>
       </div>
 
     </div>
@@ -236,7 +235,7 @@ export default function Confirmation({ selectedSeats, searchParams, totalAmount,
         <p className="text-sm text-slate-500">Tu reservación ha sido confirmada</p>
       </motion.div>
 
-      {/* Ticket Card — original style */}
+      {/* Ticket Card, original style */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -261,7 +260,7 @@ export default function Confirmation({ selectedSeats, searchParams, totalAmount,
           <div className="flex items-center gap-3 mb-4">
             <div className="flex-1">
               <div className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Origen</div>
-              <div className="text-sm font-semibold text-slate-900 mt-0.5">{searchParams.origin || 'Ciudad de Guatemala'}</div>
+              <div className="text-sm font-semibold text-slate-900 mt-0.5">{searchParams.origin || 'Ciudad Capital'}</div>
             </div>
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-green-600" />

@@ -1,87 +1,51 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, MapPin, Star, Filter } from 'lucide-react'
+import { Search, MapPin, Star } from 'lucide-react'
 
-// duration: trip length in nights (1 = day trip, 2 = 2-day/1-night, etc.)
-// availableDays: weekdays this tour departs (0=Sun, 1=Mon … 6=Sat)
+// duration: trip length in days (1 = day trip)
+// availableDays: weekdays this tour can be requested (0=Sun, 1=Mon ... 6=Sat)
+// Los tours no tienen precio publicado: el cliente solicita una cotización.
 export const TOURS = [
   {
     id: 1,
-    name: 'Tour Castillo de San Felipe & Río Dulce',
-    description: 'Navega el majestuoso Río Dulce y visita el histórico Castillo de San Felipe de Lara.',
-    price: 'Q 350.00',
-    priceNum: 350,
-    rating: 4.8,
+    name: 'Tikal',
+    description: 'Descubre el corazón del mundo maya.',
+    rating: 4.9,
     reviews: '1.2k',
-    location: 'Río Dulce, Izabal',
+    location: 'Petén',
     badge: 'Más vendido',
-    duration: 1,
-    availableDays: [4, 5, 6, 0], // Jue, Vie, Sáb, Dom
-    image: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&h=400&fit=crop',
+    duration: 2,
+    availableDays: [0, 1, 2, 3, 4, 5, 6],
+    image: '/tours/tikal.jpg',
   },
   {
     id: 2,
-    name: 'Resort Valle Dorado — Día de Piscinas',
-    description: 'Disfruta del mejor parque acuático de Guatemala con múltiples piscinas y toboganes.',
-    price: 'Q 280.00',
-    priceNum: 280,
-    rating: 4.6,
-    reviews: '3.7k',
-    location: 'Zacapa',
-    badge: null,
-    duration: 1,
-    availableDays: [5, 6, 0], // Vie, Sáb, Dom
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop',
-  },
-  {
-    id: 3,
-    name: 'Semuc Champey & Grutas de Lanquín',
-    description: 'Las piscinas naturales de color esmeralda más hermosas de Centroamérica te esperan.',
-    price: 'Q 520.00',
-    priceNum: 520,
-    rating: 4.9,
-    reviews: '892',
-    location: 'Alta Verapaz',
-    badge: '⭐ Top rated',
-    duration: 2,
-    availableDays: [4, 5], // Jue, Vie (2 días / 1 noche)
-    image: 'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=600&h=400&fit=crop',
-  },
-  {
-    id: 4,
-    name: 'Lago de Izabal & Boquerón',
-    description: 'Explora el lago más grande de Guatemala y el impresionante Cañón del Boquerón.',
-    price: 'Q 420.00',
-    priceNum: 420,
-    rating: 4.5,
-    reviews: '415',
-    location: 'Izabal',
-    badge: null,
-    duration: 3,
-    availableDays: [5], // Solo Viernes (3 días / 2 noches)
-    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&h=400&fit=crop',
-  },
-  {
-    id: 5,
-    name: 'Antigua Guatemala & Volcán de Agua',
-    description: 'Patrimonio UNESCO a tus pies: calles empedradas, iglesias barrocas y volcanes nevados.',
-    price: 'Q 310.00',
-    priceNum: 310,
+    name: 'Antigua',
+    description: 'Descubre la ciudad colonial de encanto.',
     rating: 4.7,
     reviews: '5.1k',
     location: 'Sacatepéquez',
-    badge: 'Más vendido',
+    badge: null,
     duration: 1,
-    availableDays: [1, 2, 3, 4, 5, 6, 0], // Todos los días
-    image: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&h=400&fit=crop',
+    availableDays: [0, 1, 2, 3, 4, 5, 6],
+    image: '/tours/antigua.jpg',
+  },
+  {
+    id: 3,
+    name: 'Atitlán',
+    description: 'Descubre la magia que tiene para ti, el lago de Atitlán.',
+    rating: 4.8,
+    reviews: '2.3k',
+    location: 'Sololá',
+    badge: null,
+    duration: 1,
+    availableDays: [0, 1, 2, 3, 4, 5, 6],
+    image: '/tours/atitlan.jpg',
   },
 ]
 
-const CATEGORIES = ['Todos', 'Naturaleza', 'Historia', 'Aventura', 'Playa']
-
 export default function Explore({ navigate, onSelectTour }) {
   const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState('Todos')
 
   const filtered = TOURS.filter((t) =>
     t.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -109,26 +73,6 @@ export default function Explore({ navigate, onSelectTour }) {
               className="flex-1 bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
             />
           </div>
-          <button className="w-11 h-11 bg-green-600 rounded-2xl flex items-center justify-center shadow-md shadow-green-600/25 flex-shrink-0 hover:bg-green-700 transition-all active:scale-95">
-            <Filter size={16} className="text-white" />
-          </button>
-        </div>
-
-        {/* Category Pills */}
-        <div className="flex gap-2 mt-3 overflow-x-auto pb-1 scrollbar-none">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
-                activeCategory === cat
-                  ? 'bg-green-600 text-white border-green-600 shadow-sm'
-                  : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
         </div>
       </div>
 
@@ -152,7 +96,6 @@ export default function Explore({ navigate, onSelectTour }) {
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
                 {tour.badge && (
                   <div className="absolute top-3 left-3">
@@ -178,16 +121,18 @@ export default function Explore({ navigate, onSelectTour }) {
                 </div>
                 <p className="text-xs text-slate-500 mt-2 leading-relaxed line-clamp-2">{tour.description}</p>
 
-                <div className="flex items-center justify-between mt-4">
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-medium">Desde</span>
-                    <p className="text-base font-extrabold text-slate-900 leading-tight">{tour.price}</p>
-                  </div>
+                <div className="flex items-center gap-2 mt-4">
                   <button
                     onClick={() => { onSelectTour(tour); navigate('tourDetail') }}
-                    className="px-5 py-2.5 rounded-full border-2 border-green-600 text-green-600 text-xs font-bold hover:bg-green-600 hover:text-white transition-all duration-200 active:scale-95"
+                    className="flex-1 py-2.5 rounded-full border-2 border-green-600 text-green-600 text-xs font-bold hover:bg-green-50 transition-all duration-200 active:scale-95"
                   >
-                    Ver detalles
+                    Más información
+                  </button>
+                  <button
+                    onClick={() => { onSelectTour(tour); navigate('tourBooking') }}
+                    className="flex-1 py-2.5 rounded-full border-2 border-green-600 bg-green-600 text-white text-xs font-bold hover:bg-green-700 hover:border-green-700 transition-all duration-200 active:scale-95"
+                  >
+                    Cotizar
                   </button>
                 </div>
               </div>
@@ -201,7 +146,7 @@ export default function Explore({ navigate, onSelectTour }) {
               <Search size={24} className="text-slate-300" />
             </div>
             <p className="text-slate-500 font-medium text-sm">Sin resultados para "{search}"</p>
-            <p className="text-slate-400 text-xs mt-1">Intenta con otro destino o categoría</p>
+            <p className="text-slate-400 text-xs mt-1">Intenta con otro destino</p>
           </div>
         )}
       </div>

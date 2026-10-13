@@ -15,9 +15,9 @@ const MOCK_STATUS = {
     estimatedDate: '3 Abr 2026',
     weight: '2.5 kg',
     steps: [
-      { label: 'Paquete recibido', time: '01 Abr — 8:00 AM', done: true },
-      { label: 'En tránsito', time: '02 Abr — 10:30 AM', done: true },
-      { label: 'En camino al destino', time: '03 Abr — 4:00 AM', done: true },
+      { label: 'Paquete recibido', time: '01 Abr, 8:00 AM', done: true },
+      { label: 'En tránsito', time: '02 Abr, 10:30 AM', done: true },
+      { label: 'En camino al destino', time: '03 Abr, 4:00 AM', done: true },
       { label: 'Entregado', time: 'Pendiente', done: false },
     ],
   },
@@ -217,8 +217,8 @@ export default function Lex() {
           <Clock size={16} className="text-green-600 flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-bold text-green-800">Horario de recepción</p>
-            <p className="text-[11px] text-green-700 mt-0.5">Lunes a Sábado: 6:00 AM – 6:00 PM</p>
-            <p className="text-[11px] text-green-700">Domingos y festivos: 7:00 AM – 2:00 PM</p>
+            <p className="text-[11px] text-green-700 mt-0.5">Lunes a Sábado: 6:00 AM a 6:00 PM</p>
+            <p className="text-[11px] text-green-700">Domingos y festivos: 7:00 AM a 2:00 PM</p>
           </div>
         </div>
       </div>

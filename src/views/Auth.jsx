@@ -63,9 +63,8 @@ function WelcomeScreen({ onEmail, onGuest }) {
           alt="Guatemala"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent" style={{ top: '60%' }} />
+        {/* Flat overlay */}
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Logo chip */}
         <div className="absolute top-14 left-6 flex items-center gap-2.5">
@@ -75,7 +74,7 @@ function WelcomeScreen({ onEmail, onGuest }) {
           <span className="text-white font-extrabold text-base tracking-tight drop-shadow">Litegua</span>
         </div>
 
-        {/* Hero text — bottom of image */}
+        {/* Hero text, bottom of image */}
         <div className="absolute bottom-6 left-6 right-6">
           <h1 className="text-3xl font-black text-white leading-tight tracking-tight drop-shadow-lg">
             Guatemala<br />te espera

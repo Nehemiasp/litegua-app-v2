@@ -86,7 +86,7 @@ function PromoCard({ promo, index, navigate, onSelectPromo }) {
             onClick={() => { onSelectPromo(promo); navigate('promoDetail') }}
             className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 mt-4"
           >
-            Ver promoción <span className="text-lg leading-none">→</span>
+            Ver promoción
           </button>
         </div>
 

@@ -8,31 +8,31 @@ const UPCOMING = [
     id: 'LX-20260415-38',
     service: 'Primera Plus',
     date: '15 Abril 2026',
-    from: 'Guatemala',
+    from: 'Ciudad Capital',
     to: 'Puerto Barrios',
     time: '4:00 AM',
     seat: 'Butaca 38',
     agency: 'Centra Norte',
-    price: 'Q 288.15',
+    price: 'Q 250.88',
   },
   {
-    id: 'LX-20260512-12',
+    id: 'LX-20260512-52',
     service: 'Primera Plus',
     date: '12 Mayo 2026',
-    from: 'Guatemala',
-    to: 'Cobán',
+    from: 'Ciudad Capital',
+    to: 'Chiquimula',
     time: '6:00 AM',
-    seat: 'Butaca 12',
-    agency: 'Centra Sur',
-    price: 'Q 264.00',
+    seat: 'Butaca 52',
+    agency: 'Centra Norte',
+    price: 'Q 181.89',
   },
 ]
 
 const PAST = [
-  { id: 'LX-20261201-07', date: '01 Dic 2025', from: 'Guatemala', to: 'Puerto Barrios', service: 'Primera Plus', price: 'Q 288.15' },
-  { id: 'LX-20261115-22', date: '15 Nov 2025', from: 'Guatemala', to: 'Zacapa',         service: 'Primera Plus', price: 'Q 210.00' },
-  { id: 'LX-20261003-33', date: '03 Oct 2025', from: 'Guatemala', to: 'Morales',        service: 'Primera Plus', price: 'Q 240.00' },
-  { id: 'LX-20260820-05', date: '20 Ago 2025', from: 'Puerto Barrios', to: 'Guatemala', service: 'Primera Plus', price: 'Q 288.15' },
+  { id: 'LX-20261201-07', date: '01 Dic 2025', from: 'Ciudad Capital', to: 'Puerto Barrios', service: 'Primera Plus', price: 'Q 250.88' },
+  { id: 'LX-20261115-22', date: '15 Nov 2025', from: 'Ciudad Capital', to: 'Rio Hondo',      service: 'Primera Plus', price: 'Q 181.89' },
+  { id: 'LX-20261003-33', date: '03 Oct 2025', from: 'Ciudad Capital', to: 'Morales',        service: 'Primera Plus', price: 'Q 181.89' },
+  { id: 'LX-20260820-05', date: '20 Ago 2025', from: 'Puerto Barrios', to: 'Ciudad Capital', service: 'Primera Plus', price: 'Q 250.88' },
 ]
 
 // ─── QR SVG ────────────────────────────────────────────────
@@ -97,7 +97,7 @@ function BoardingPass({ ticket }) {
           </div>
         </div>
 
-        {/* Details — 3 columns side by side */}
+        {/* Details: 3 columns side by side */}
         <div className="flex items-start justify-between">
           {/* Salida */}
           <div>
@@ -229,7 +229,7 @@ export default function MyTrips() {
                     <Armchair size={16} className="text-slate-300" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-slate-500 truncate">{t.from} → {t.to}</p>
+                    <p className="text-sm font-semibold text-slate-500 truncate">{t.from} a {t.to}</p>
                     <p className="text-[11px] text-slate-400 mt-0.5">{t.date} · {t.service}</p>
                   </div>
                   <span className="text-sm font-bold text-slate-300 flex-shrink-0">{t.price}</span>

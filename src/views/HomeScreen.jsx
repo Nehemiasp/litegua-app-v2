@@ -16,6 +16,18 @@ export default function HomeScreen({
   searchParams, setSearchParams, activeTab, setActiveTab,
   handleSearch, navigate, setLocationPicker, onSelectAgency, onSelectTour,
 }) {
+  const [tourId, setTourId] = useState('')
+
+  const goToTour = () => {
+    const tour = TOURS.find((t) => String(t.id) === tourId)
+    if (tour) {
+      onSelectTour(tour)
+      navigate('tourDetail')
+    } else {
+      navigate('explore')
+    }
+  }
+
   const swapLocations = () => {
     setSearchParams((prev) => ({
       ...prev,
@@ -123,13 +135,14 @@ export default function HomeScreen({
               className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"
             >
               <p className="text-[11px] font-bold text-green-600 uppercase tracking-wider mb-3">¿A dónde quieres ir?</p>
-              <button onClick={() => setLocationPicker('destination')}
-                className="w-full text-left px-4 py-3 bg-slate-50 rounded-xl mb-3 text-sm hover:bg-slate-100 transition-colors flex items-center gap-2">
-                <MapPinned size={14} className="text-green-500 flex-shrink-0" />
-                <span className={searchParams.destination ? 'text-slate-900 font-medium' : 'text-slate-400'}>
-                  {searchParams.destination || 'Destino del tour'}
-                </span>
-              </button>
+              <div className="relative mb-3">
+                <MapPinned size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-green-500 pointer-events-none" />
+                <select value={tourId} onChange={(e) => setTourId(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 rounded-xl text-sm text-slate-700 border border-transparent focus:border-green-300 focus:ring-2 focus:ring-green-100 appearance-none transition-all">
+                  <option value="">Destino del tour</option>
+                  {TOURS.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+                </select>
+              </div>
               <div className="flex gap-2 mb-3">
                 <div className="flex-1 relative">
                   <Calendar size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -147,15 +160,7 @@ export default function HomeScreen({
                   </select>
                 </div>
               </div>
-              <select className="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm text-slate-700 border border-transparent focus:border-green-300 focus:ring-2 focus:ring-green-100 appearance-none transition-all mb-3">
-                <option value="">Tipo de tour</option>
-                <option>Cultural e histórico</option>
-                <option>Aventura y naturaleza</option>
-                <option>Playa y relax</option>
-                <option>Gastronomía</option>
-                <option>Familiar</option>
-              </select>
-              <button onClick={() => navigate('explore')}
+              <button onClick={goToTour}
                 className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full text-sm shadow-md shadow-green-600/25 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                 <Umbrella size={16} /> Buscar tours
               </button>
@@ -205,8 +210,8 @@ export default function HomeScreen({
                   <select className="w-full pl-8 pr-3 py-3 bg-slate-50 rounded-xl text-sm text-slate-700 border border-transparent focus:border-green-300 focus:ring-2 focus:ring-green-100 appearance-none transition-all">
                     <option value="">Peso aprox.</option>
                     <option>Menos de 1 kg</option>
-                    <option>1 – 5 kg</option>
-                    <option>5 – 15 kg</option>
+                    <option>1 a 5 kg</option>
+                    <option>5 a 15 kg</option>
                     <option>Más de 15 kg</option>
                   </select>
                 </div>
@@ -221,10 +226,10 @@ export default function HomeScreen({
         </AnimatePresence>
       </div>
 
-      {/* Recommendations — real tour data */}
+      {/* Recommendations: real tour data */}
       <div className="pb-6" style={{ paddingInline: 'calc(var(--spacing) * 5)' }}>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-slate-900">Recomendaciones para ti</h2>
+          <h2 className="text-base font-bold text-slate-900">Destinos populares</h2>
           <button onClick={() => navigate('explore')} className="text-xs font-semibold text-green-600">
             Ver todas
           </button>
@@ -260,7 +265,12 @@ export default function HomeScreen({
                       <span className="text-xs font-bold text-slate-700">{tour.rating}</span>
                     </div>
                   </div>
-                  <p className="text-xs font-bold text-green-700 mt-1.5">{tour.price}</p>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onSelectTour(tour); navigate('tourBooking') }}
+                    className="w-full mt-2.5 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold transition-colors active:scale-[0.98]"
+                  >
+                    Cotizar
+                  </button>
                 </div>
               </motion.div>
             ))}
@@ -283,7 +293,7 @@ export default function HomeScreen({
               5% de descuento en tu<br />primera reservación
             </h3>
             <button onClick={() => navigate('promotions')} className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 mt-4">
-              Ver promoción <span className="text-lg leading-none">→</span>
+              Ver promoción
             </button>
           </div>
           {/* Right: photo collage */}
