@@ -116,98 +116,9 @@ function DatosFacturacion({ onBack }) {
   )
 }
 
-function MetodosPago({ onBack }) {
-  const cards = [
-    { type: 'Visa', last4: '4242', exp: '12/27', brand: '💳' },
-    { type: 'Mastercard', last4: '8888', exp: '08/26', brand: '💳' },
-  ]
-  return (
-    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
-      <SubHeader title="Métodos de Pago" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
-        {/* Cards */}
-        {cards.map((c, i) => (
-          <div key={i} className="bg-white rounded-3xl border border-slate-100 px-4 py-3.5 flex items-center gap-3">
-            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
-              {c.brand}
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-bold text-slate-900">{c.type} ···· {c.last4}</p>
-              <p className="text-xs text-slate-400 mt-0.5">Vence {c.exp}</p>
-            </div>
-            {i === 0 && (
-              <span className="text-[9px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Principal</span>
-            )}
-            <button className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center ml-1">
-              <Trash2 size={13} className="text-red-400" />
-            </button>
-          </div>
-        ))}
-        {/* Wallet balance */}
-        <div className="bg-green-600 rounded-3xl p-4 text-white">
-          <p className="text-[10px] font-bold opacity-70 uppercase tracking-widest mb-1">Litegua Wallet</p>
-          <p className="text-3xl font-extrabold">Q 1,200.00</p>
-          <p className="text-xs opacity-70 mt-1">Saldo disponible</p>
-        </div>
-        {/* Add card */}
-        <button className="w-full py-4 rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 flex items-center justify-center gap-2 text-sm font-semibold hover:border-green-300 hover:text-green-600 transition-all">
-          <Plus size={15} />
-          Agregar tarjeta
-        </button>
-      </div>
-    </div>
-  )
-}
-
-function PreferenciasViaje({ onBack }) {
-  const [seat, setSeat] = useState(0)
-  const [toggles, setToggles] = useState([true, true, false])
-  const toggleItem = (i) => setToggles(t => t.map((v, idx) => idx === i ? !v : v))
-  return (
-    <div className="flex-1 min-h-0 flex flex-col bg-slate-50">
-      <SubHeader title="Preferencias de Viaje" onBack={onBack} />
-      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-5 flex flex-col gap-4 pb-6">
-        {/* Seat preference */}
-        <div className="bg-white rounded-3xl border border-slate-100 p-4">
-          <p className="text-xs font-bold text-slate-500 mb-3 flex items-center gap-1.5">
-            <Sliders size={12} /> Asiento preferido
-          </p>
-          {['Ventana', 'Pasillo', 'Sin preferencia'].map((opt, i) => (
-            <button key={i} onClick={() => setSeat(i)} className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left mb-2 last:mb-0 transition-all ${i === seat ? 'border-green-500 bg-green-50' : 'border-slate-100 bg-white'}`}>
-              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${i === seat ? 'border-green-500 bg-green-500' : 'border-slate-300'}`}>
-                {i === seat && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-              </div>
-              <span className={`text-sm font-semibold ${i === seat ? 'text-green-800' : 'text-slate-600'}`}>{opt}</span>
-            </button>
-          ))}
-        </div>
-        {/* Toggle prefs */}
-        <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden">
-          {[
-            { label: 'Recordatorios de viaje', sub: 'Avisos 24h y 1h antes' },
-            { label: 'Factura automática', sub: 'Al confirmar cada reserva' },
-            { label: 'Modo sin conexión', sub: 'Descarga boletos automáticamente' },
-          ].map((item, i, arr) => (
-            <div key={i} className={`flex items-center justify-between px-4 py-3.5 ${i < arr.length-1 ? 'border-b border-slate-50' : ''}`}>
-              <div>
-                <p className="text-sm font-semibold text-slate-800">{item.label}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">{item.sub}</p>
-              </div>
-              <button onClick={() => toggleItem(i)} className={`w-11 h-6 rounded-full transition-colors flex-shrink-0 ${toggles[i] ? 'bg-green-500' : 'bg-slate-200'} relative`}>
-                <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${toggles[i] ? 'translate-x-5' : 'translate-x-0.5'}`} />
-              </button>
-            </div>
-          ))}
-        </div>
-        <SaveBtn label="Guardar preferencias" />
-      </div>
-    </div>
-  )
-}
-
 function Notificaciones({ onBack }) {
-  const [toggles, setToggles] = useState({ conf: true, rec: true, cambios: true, ofertas: false, nove: false })
-  const keys = ['conf','rec','cambios','ofertas','nove']
+  const [toggles, setToggles] = useState({ conf: true, rec: true, cambios: true, nove: false })
+  const keys = ['conf','rec','cambios','nove']
   const toggle = (k) => setToggles(t => ({ ...t, [k]: !t[k] }))
   const groups = [
     {
@@ -219,9 +130,8 @@ function Notificaciones({ onBack }) {
       ]
     },
     {
-      title: 'Promociones',
+      title: 'Novedades',
       items: [
-        { label: 'Ofertas y descuentos', sub: 'Promociones personalizadas', key: 'ofertas' },
         { label: 'Novedades de Litegua', sub: 'Nuevos tours y destinos', key: 'nove' },
       ]
     }
@@ -379,8 +289,6 @@ function CentroAyuda({ onBack }) {
 const MENU_ITEMS = [
   { id: 'personal',    label: 'Datos Personales',       desc: 'Nombre, foto y contacto',    icon: User,        color: 'text-blue-500',   bg: 'bg-blue-50',   badge: null },
   { id: 'billing',     label: 'Datos de Facturación',   desc: 'NIT y razón social',         icon: Receipt,     color: 'text-orange-500', bg: 'bg-orange-50', badge: 'Importante' },
-  { id: 'payment',     label: 'Métodos de Pago',        desc: 'Tarjetas guardadas',         icon: CreditCard,  color: 'text-green-600',  bg: 'bg-green-50',  badge: null },
-  { id: 'preferences', label: 'Preferencias de Viaje',  desc: 'Asientos y notificaciones',  icon: Settings,    color: 'text-slate-500',  bg: 'bg-slate-100', badge: null },
   { id: 'notifs',      label: 'Notificaciones',         desc: 'Alertas y recordatorios',    icon: Bell,        color: 'text-purple-500', bg: 'bg-purple-50', badge: null },
   { id: 'security',    label: 'Seguridad y Privacidad', desc: 'Contraseña y permisos',      icon: Shield,      color: 'text-slate-500',  bg: 'bg-slate-100', badge: null },
   { id: 'help',        label: 'Centro de Ayuda',        desc: 'Preguntas frecuentes',       icon: HelpCircle,  color: 'text-teal-500',   bg: 'bg-teal-50',   badge: null },
@@ -394,8 +302,7 @@ const STATS = [
 
 // ── Screen map ────────────────────────────────────────────────
 function SubScreen({ id, onBack }) {
-  const map = { personal: DatosPersonales, billing: DatosFacturacion, payment: MetodosPago,
-    preferences: PreferenciasViaje, notifs: Notificaciones, security: SeguridadPrivacidad, help: CentroAyuda }
+  const map = { personal: DatosPersonales, billing: DatosFacturacion, notifs: Notificaciones, security: SeguridadPrivacidad, help: CentroAyuda }
   const Component = map[id]
   return Component ? <Component onBack={onBack} /> : null
 }

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Payment({
   selectedSeats, goBack, navigate, searchParams,
-  totalBoletos, serviceFee, totalAmount, handlePayment, paymentProcessing,
+  totalBoletos, totalAmount, handlePayment, paymentProcessing,
 }) {
   const [cardName, setCardName] = useState('')
   const [cardNumber, setCardNumber] = useState('')
@@ -86,13 +86,9 @@ export default function Payment({
         >
           <h2 className="text-base font-bold text-slate-900 mb-4">Resumen de compra</h2>
 
-          <div className="flex justify-between items-center py-2.5 border-b border-slate-100">
+          <div className="flex justify-between items-center py-2.5 border-b border-dashed border-slate-200">
             <span className="text-sm text-slate-600">Boletos (x{selectedSeats.length}) - Primera Plus</span>
             <span className="text-sm font-medium text-slate-700">Q {totalBoletos.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between items-center py-2.5 border-b border-dashed border-slate-200">
-            <span className="text-sm text-slate-600">Cargos por servicio</span>
-            <span className="text-sm font-medium text-slate-700">Q {serviceFee.toFixed(2)}</span>
           </div>
 
           <div className="text-center mt-4">

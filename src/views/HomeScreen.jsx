@@ -283,41 +283,6 @@ export default function HomeScreen({
         </div>
       </div>
 
-      {/* Promotions */}
-      <div className="px-5 pb-5">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xl font-extrabold text-slate-900">Promociones</h2>
-          <button onClick={() => navigate('promotions')} className="text-xs font-semibold text-green-600">
-            Ver todas
-          </button>
-        </div>
-        <div className="bg-slate-100 rounded-3xl overflow-hidden flex" style={{ minHeight: 140 }}>
-          {/* Left: text */}
-          <div className="flex-1 p-5 flex flex-col justify-between">
-            <h3 className="text-lg font-extrabold text-slate-900 leading-snug">
-              5% de descuento en tu<br />primera reservación
-            </h3>
-            <button onClick={() => navigate('promotions')} className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 mt-4">
-              Ver promoción
-            </button>
-          </div>
-          {/* Right: photo collage */}
-          <div className="flex gap-0.5" style={{ width: 140, flexShrink: 0 }}>
-            <div className="flex-1 overflow-hidden">
-              <img src="/promo_family.png" alt="Promo" className="w-full h-full object-cover" />
-            </div>
-            <div className="flex flex-col gap-0.5" style={{ width: 60, flexShrink: 0 }}>
-              <div className="flex-1 overflow-hidden">
-                <img src="/promo_group.png" alt="Promo" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <img src="/promo_couple.png" alt="Promo" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Agencies */}
       <div className="pb-10" style={{ paddingInline: 'calc(var(--spacing) * 5)' }}>
         <div className="flex items-center justify-between mb-3">

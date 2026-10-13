@@ -17,8 +17,6 @@ import Auth from './views/Auth'
 import AgencyDetail from './views/AgencyDetail'
 import AgencyMap from './views/AgencyMap'
 import LocationPicker from './components/LocationPicker'
-import Promotions from './views/Promotions'
-import PromoDetail from './views/PromoDetail'
 import { seatPrice } from './constants'
 
 const pageVariants = {
@@ -30,7 +28,6 @@ const pageVariants = {
 // Main bottom-nav views that show the bottom bar
 const MAIN_VIEWS = ['home', 'explore', 'trips', 'profile']
 
-const SERVICE_FEE_RATE = 0.2544
 
 export default function App() {
   const [currentView, setCurrentView] = useState('auth')
@@ -39,7 +36,6 @@ export default function App() {
   const [passengerData, setPassengerData] = useState({})
   const [selectedTour, setSelectedTour] = useState(null)
   const [selectedAgency, setSelectedAgency] = useState(null)
-  const [selectedPromo, setSelectedPromo] = useState(null)
   const [searchParams, setSearchParams] = useState({
     origin: '',
     destination: '',
@@ -50,8 +46,7 @@ export default function App() {
   const [paymentProcessing, setPaymentProcessing] = useState(false)
 
   const totalBoletos = selectedSeats.reduce((sum, seat) => sum + seatPrice(seat), 0)
-  const serviceFee = totalBoletos * SERVICE_FEE_RATE
-  const totalAmount = totalBoletos + serviceFee
+  const totalAmount = totalBoletos
 
   const navigate = (view) => {
     setCurrentView(view)
@@ -68,8 +63,6 @@ export default function App() {
       tourBooking: 'tourDetail',
       agencyDetail: 'home',
       agencyMap: 'home',
-      promotions: 'home',
-      promoDetail: 'promotions',
     }
     setCurrentView(backMap[currentView] || 'home')
   }
@@ -110,12 +103,11 @@ export default function App() {
       passengerData, setPassengerData,
       navigate, goBack, handleSearch,
       activeTab, setActiveTab,
-      totalBoletos, serviceFee, totalAmount,
+      totalBoletos, totalAmount,
       handlePayment, paymentProcessing,
       resetFlow, setLocationPicker,
       onSelectAgency: setSelectedAgency,
       onSelectTour: setSelectedTour,
-      onSelectPromo: setSelectedPromo,
     }
 
     switch (currentView) {
@@ -134,8 +126,6 @@ export default function App() {
       case 'tourBooking':  return <TourBooking tour={selectedTour} goBack={goBack} navigate={navigate} />
       case 'agencyDetail': return <AgencyDetail agency={selectedAgency} goBack={goBack} />
       case 'agencyMap':    return <AgencyMap goBack={goBack} navigate={navigate} onSelectAgency={setSelectedAgency} />
-      case 'promotions':   return <Promotions goBack={goBack} navigate={navigate} onSelectPromo={setSelectedPromo} />
-      case 'promoDetail':  return <PromoDetail promo={selectedPromo} goBack={goBack} navigate={navigate} />
       default:             return <HomeScreen {...props} />
     }
   }
@@ -143,8 +133,8 @@ export default function App() {
   const showBottomNav = MAIN_VIEWS.includes(currentView) && currentView !== 'auth'
 
   return (
-    <div className="min-h-screen bg-slate-200 flex justify-center">
-      <div className="w-full max-w-md bg-white min-h-screen relative flex flex-col shadow-xl">
+    <div className="min-h-dvh bg-slate-200 flex justify-center">
+      <div className="w-full max-w-md bg-white min-h-dvh relative flex flex-col shadow-xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentView}
