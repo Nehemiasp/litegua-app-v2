@@ -19,6 +19,7 @@ import AgencyMap from './views/AgencyMap'
 import LocationPicker from './components/LocationPicker'
 import Promotions from './views/Promotions'
 import PromoDetail from './views/PromoDetail'
+import { seatPrice } from './constants'
 
 const pageVariants = {
   initial: { opacity: 0, x: 30 },
@@ -29,7 +30,6 @@ const pageVariants = {
 // Main bottom-nav views that show the bottom bar
 const MAIN_VIEWS = ['home', 'explore', 'trips', 'profile']
 
-const SEAT_PRICE = 150.00
 const SERVICE_FEE_RATE = 0.2544
 
 export default function App() {
@@ -49,7 +49,7 @@ export default function App() {
   const [locationPicker, setLocationPicker] = useState(null)
   const [paymentProcessing, setPaymentProcessing] = useState(false)
 
-  const totalBoletos = selectedSeats.length * SEAT_PRICE
+  const totalBoletos = selectedSeats.reduce((sum, seat) => sum + seatPrice(seat), 0)
   const serviceFee = totalBoletos * SERVICE_FEE_RATE
   const totalAmount = totalBoletos + serviceFee
 
@@ -113,7 +113,6 @@ export default function App() {
       totalBoletos, serviceFee, totalAmount,
       handlePayment, paymentProcessing,
       resetFlow, setLocationPicker,
-      SEAT_PRICE,
       onSelectAgency: setSelectedAgency,
       onSelectTour: setSelectedTour,
       onSelectPromo: setSelectedPromo,

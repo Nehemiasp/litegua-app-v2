@@ -1,86 +1,24 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, MapPin, Navigation, Search, Clock } from 'lucide-react'
+import { X, MapPin, Search, Clock } from 'lucide-react'
+import { BUS_LOCATIONS } from '../constants'
 
-// ── All major Guatemala locations with region context ────────
-const ALL_LOCATIONS = [
-  // Guatemala City & Metro
-  { name: 'Ciudad de Guatemala', region: 'Guatemala', popular: true },
-  { name: 'Mixco', region: 'Guatemala', popular: true },
-  { name: 'Villa Nueva', region: 'Guatemala', popular: true },
-  { name: 'San Miguel Petapa', region: 'Guatemala' },
-  { name: 'Amatitlán', region: 'Guatemala' },
-  { name: 'Santa Catarina Pinula', region: 'Guatemala' },
-  { name: 'San Juan Sacatepéquez', region: 'Guatemala' },
-  // Izabal
-  { name: 'Puerto Barrios', region: 'Izabal', popular: true },
-  { name: 'Morales', region: 'Izabal', popular: true },
-  { name: 'Rio Dulce', region: 'Izabal', popular: true },
-  { name: 'Livingston', region: 'Izabal' },
-  { name: 'El Estor', region: 'Izabal' },
-  // Zacapa
-  { name: 'Zacapa', region: 'Zacapa', popular: true },
-  { name: 'Chiquimula', region: 'Zacapa' },
-  { name: 'Esquipulas', region: 'Chiquimula', popular: true },
-  { name: 'Gualán', region: 'Zacapa' },
-  // Alta Verapaz
-  { name: 'Cobán', region: 'Alta Verapaz', popular: true },
-  { name: 'San Pedro Carchá', region: 'Alta Verapaz' },
-  { name: 'Senahu', region: 'Alta Verapaz' },
-  { name: 'Lanquín', region: 'Alta Verapaz' },
-  { name: 'Semuc Champey', region: 'Alta Verapaz' },
-  // Petén
-  { name: 'Flores', region: 'Petén', popular: true },
-  { name: 'Santa Elena', region: 'Petén' },
-  { name: 'Poptún', region: 'Petén' },
-  { name: 'Sayaxché', region: 'Petén' },
-  // Baja Verapaz
-  { name: 'Salamá', region: 'Baja Verapaz' },
-  { name: 'Rabinal', region: 'Baja Verapaz' },
-  // El Progreso
-  { name: 'Guastatoya', region: 'El Progreso' },
-  { name: 'Sanarate', region: 'El Progreso' },
-  // Jalapa & Jutiapa
-  { name: 'Jalapa', region: 'Jalapa' },
-  { name: 'Jutiapa', region: 'Jutiapa' },
-  { name: 'Asunción Mita', region: 'Jutiapa' },
-  // Sacatepéquez / Chimaltenango
-  { name: 'Antigua Guatemala', region: 'Sacatepéquez', popular: true },
-  { name: 'Chimaltenango', region: 'Chimaltenango' },
-  { name: 'Patzicía', region: 'Chimaltenango' },
-  // Escuintla & Costa Sur
-  { name: 'Escuintla', region: 'Escuintla' },
-  { name: 'Puerto San José', region: 'Escuintla' },
-  { name: 'Palín', region: 'Escuintla' },
-  // Quetzaltenango & occidente
-  { name: 'Quetzaltenango', region: 'Quetzaltenango', popular: true },
-  { name: 'San Marcos', region: 'San Marcos' },
-  { name: 'Huehuetenango', region: 'Huehuetenango' },
-  { name: 'Santa Cruz del Quiché', region: 'El Quiché' },
-  // Sololá
-  { name: 'Panajachel', region: 'Sololá', popular: true },
-  { name: 'Santiago Atitlán', region: 'Sololá' },
-  // Retalhuleu / Suchitepéquez
-  { name: 'Retalhuleu', region: 'Retalhuleu' },
-  { name: 'Mazatenango', region: 'Suchitepéquez' },
-]
+const ALL_LOCATIONS = BUS_LOCATIONS.map((name) => ({ name }))
 
-const POPULAR = ALL_LOCATIONS.filter(l => l.popular)
-
-// Simple fuzzy match — score higher if word starts with query
+// Simple fuzzy match: higher score if the name starts with the query
 function score(loc, q) {
   const name = loc.name.toLowerCase()
-  const region = loc.region.toLowerCase()
   const query = q.toLowerCase()
-  if (name.startsWith(query)) return 3
-  if (name.includes(query)) return 2
-  if (region.includes(query)) return 1
+  if (name.startsWith(query)) return 2
+  if (name.includes(query)) return 1
   return 0
 }
 
 const RECENT_KEY = 'ltg_recent_locations'
 const getRecent = () => {
-  try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') } catch { return [] }
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]').filter(r => BUS_LOCATIONS.includes(r))
+  } catch { return [] }
 }
 const saveRecent = (loc) => {
   const prev = getRecent().filter(r => r !== loc)
@@ -89,11 +27,10 @@ const saveRecent = (loc) => {
 
 export default function LocationPicker({ type, searchParams, setSearchParams, onClose }) {
   const [query, setQuery] = useState('')
-  const [recents, setRecents] = useState(getRecent)
+  const [recents] = useState(getRecent)
   const inputRef = useRef(null)
   const fieldKey = type === 'origin' ? 'origin' : 'destination'
-  const title = type === 'origin' ? 'Origen' : 'Destino'
-  const placeholder = type === 'origin' ? 'Ciudad, municipio...' : 'Ciudad, destino...'
+  const placeholder = type === 'origin' ? 'Buscar origen...' : 'Buscar destino...'
 
   useEffect(() => { setTimeout(() => inputRef.current?.focus(), 300) }, [])
 
@@ -162,51 +99,52 @@ export default function LocationPicker({ type, searchParams, setSearchParams, on
         </div>
       </div>
 
-      {/* Label */}
-      <div className="px-5 pt-3 pb-1">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-          {showDefault ? (recents.length > 0 ? 'Recientes' : 'Populares') : `${results.length} resultado${results.length !== 1 ? 's' : ''}`}
-        </span>
-      </div>
+      {/* Label (search results only) */}
+      {!showDefault && (
+        <div className="px-5 pt-3 pb-1">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            {`${results.length} resultado${results.length !== 1 ? 's' : ''}`}
+          </span>
+        </div>
+      )}
 
       {/* List */}
       <div className="flex-1 overflow-y-auto">
         <AnimatePresence mode="wait">
 
-          {/* Default view — recents or popular + current location */}
+          {/* Default view: recents + all bus locations */}
           {showDefault && (
             <motion.div key="default" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <button
-                onClick={() => selectLocation('Mi ubicación actual')}
-                className="flex items-center gap-3 px-5 py-3.5 w-full text-left hover:bg-slate-50 transition-colors"
-              >
-                <div className="w-8 h-8 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
-                  <Navigation size={15} className="text-green-600" fill="currentColor" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-green-700">Ubicación actual</p>
-                  <p className="text-[11px] text-slate-400">Usar mi ubicación GPS</p>
-                </div>
-              </button>
+              {recents.length > 0 && (
+                <>
+                  <p className="px-5 pt-3 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Recientes</p>
+                  {recents.map((name) => (
+                    <button
+                      key={`recent-${name}`}
+                      onClick={() => selectLocation(name)}
+                      className="flex items-center gap-3 px-5 py-3.5 w-full text-left hover:bg-slate-50 transition-colors"
+                    >
+                      <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                        <Clock size={14} className="text-slate-400" />
+                      </div>
+                      <p className="text-sm text-slate-800 font-medium">{name}</p>
+                    </button>
+                  ))}
+                  <div className="h-px bg-slate-100 mx-5 my-1" />
+                </>
+              )}
 
-              <div className="h-px bg-slate-100 mx-5 my-1" />
-
-              {(recents.length > 0 ? recents.map(r => ({ name: r, region: '' })) : POPULAR).map((loc) => (
+              <p className="px-5 pt-3 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ubicaciones</p>
+              {ALL_LOCATIONS.map((loc) => (
                 <button
                   key={loc.name}
                   onClick={() => selectLocation(loc.name)}
                   className="flex items-center gap-3 px-5 py-3.5 w-full text-left hover:bg-slate-50 transition-colors"
                 >
                   <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
-                    {recents.length > 0
-                      ? <Clock size={14} className="text-slate-400" />
-                      : <MapPin size={14} className="text-slate-400" />
-                    }
+                    <MapPin size={14} className="text-slate-400" />
                   </div>
-                  <div>
-                    <p className="text-sm text-slate-800 font-medium">{loc.name}</p>
-                    {loc.region && <p className="text-[11px] text-slate-400">{loc.region}</p>}
-                  </div>
+                  <p className="text-sm text-slate-800 font-medium">{loc.name}</p>
                 </button>
               ))}
             </motion.div>
@@ -221,7 +159,7 @@ export default function LocationPicker({ type, searchParams, setSearchParams, on
                     <MapPin size={24} className="text-slate-300" />
                   </div>
                   <p className="text-sm font-semibold text-slate-500">Sin resultados</p>
-                  <p className="text-xs text-slate-400 mt-1">Intenta con otro nombre o municipio</p>
+                  <p className="text-xs text-slate-400 mt-1">Intenta con otro nombre</p>
                 </div>
               ) : results.map((loc) => (
                 <button
@@ -234,7 +172,6 @@ export default function LocationPicker({ type, searchParams, setSearchParams, on
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm text-slate-800 font-medium leading-snug">{highlight(loc.name)}</p>
-                    <p className="text-[11px] text-slate-400">{loc.region}</p>
                   </div>
                 </button>
               ))}

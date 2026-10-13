@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 export default function Payment({
   selectedSeats, goBack, navigate, searchParams,
   totalBoletos, serviceFee, totalAmount, handlePayment, paymentProcessing,
-  SEAT_PRICE,
 }) {
   const [cardName, setCardName] = useState('')
   const [cardNumber, setCardNumber] = useState('')

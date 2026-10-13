@@ -36,7 +36,7 @@ export default function PromoDetail({ promo, goBack, navigate }) {
         </div>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Back button */}
         <div className="absolute top-0 left-0 right-0 flex items-center px-4 pt-12">

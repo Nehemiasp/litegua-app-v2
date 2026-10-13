@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Checkout({
   selectedSeats, passengerData, setPassengerData,
-  navigate, goBack, searchParams, totalAmount, SEAT_PRICE,
+  navigate, goBack, searchParams, totalAmount,
 }) {
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [assignToAll, setAssignToAll] = useState(false)
@@ -107,7 +107,7 @@ export default function Checkout({
                   <div className="bg-green-50 border border-green-200 rounded-2xl px-4 py-3 flex items-center gap-3">
                     <CheckCircle2 size={18} className="text-green-600 flex-shrink-0" />
                     <div>
-                      <p className="text-xs font-bold text-green-800">Pasajero No.{idx + 1} — Butaca #{seat}</p>
+                      <p className="text-xs font-bold text-green-800">Pasajero No.{idx + 1}, Butaca #{seat}</p>
                       <p className="text-[11px] text-green-600 mt-0.5">Datos copiados del Pasajero No.1</p>
                     </div>
                   </div>

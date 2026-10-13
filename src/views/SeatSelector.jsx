@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { ArrowLeft, Clock, MapPin, Armchair, User, ChevronUp, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { DECK_PRICES, seatPrice } from '../constants'
 
 // ── Seat data per deck ─────────────────────────────────────
+// Planta baja: butacas 1-40 | Planta alta: butacas 41-80
 const DECKS = {
   lower: { label: 'Planta Baja', rows: 10, offset: 0,  occupied: [3, 7, 12, 15, 18, 22, 25, 31] },
   upper: { label: 'Planta Alta', rows: 10, offset: 40, occupied: [43, 47, 52, 55, 58, 62, 71] },
 }
-const SEAT_PRICE = 85
 
 // ── Seat button ────────────────────────────────────────────
 function SeatBtn({ num, status, onToggle }) {
@@ -67,7 +68,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
     return 'available'
   }
 
-  const totalPrice = selectedSeats.length * SEAT_PRICE
+  const totalPrice = selectedSeats.reduce((sum, seat) => sum + seatPrice(seat), 0)
 
   return (
     <div className="flex-1 flex flex-col bg-slate-50">
@@ -86,7 +87,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
               <span>4:00 a.m.</span>
               <span>·</span>
               <MapPin size={10} />
-              <span>{searchParams?.origin || 'Capital'} → {searchParams?.destination || 'Puerto Barrios'}</span>
+              <span>{searchParams?.origin || 'Ciudad Capital'} a {searchParams?.destination || 'Puerto Barrios'}</span>
             </div>
           </div>
           <div className="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center">
@@ -135,14 +136,14 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
               {/* Green nose / header */}
               <div
                 style={{
-                  background: 'linear-gradient(135deg, #16a34a, #15803d)',
+                  background: '#16a34a',
                   padding: '14px 20px',
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 }}
               >
                 <div>
                   <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 9, fontWeight: 700, margin: 0, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                    {activeDeck === 'upper' ? '⬆ Planta Alta' : '⬇ Planta Baja'}
+                    {activeDeck === 'upper' ? 'Planta Alta' : 'Planta Baja'} · Q {DECK_PRICES[activeDeck]} por asiento
                   </p>
                   <p style={{ color: 'white', fontSize: 13, fontWeight: 800, margin: '2px 0 0' }}>Litegua Primera Plus</p>
                 </div>
@@ -230,7 +231,7 @@ export default function SeatSelector({ selectedSeats, toggleSeat, navigate, goBa
               onClick={() => navigate('checkout')}
               className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-sm shadow-lg shadow-green-600/25 transition-colors"
             >
-              Continuar → Registrar Viajeros
+              Registrar viajeros
             </motion.button>
           </motion.div>
         )}

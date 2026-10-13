@@ -9,7 +9,7 @@ import {
 export const AGENCIES = [
   {
     id: 1,
-    name: 'Terminal Litegua — Centra Norte',
+    name: 'Terminal Litegua Centra Norte',
     shortName: 'Centra Norte',
     phone: '2326-9500',
     whatsapp: '50223269500',
@@ -23,9 +23,9 @@ export const AGENCIES = [
       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
     ],
     schedule: [
-      { day: 'Lunes – Viernes', hours: '3:00 AM – 10:00 PM' },
-      { day: 'Sábados',        hours: '3:00 AM – 8:00 PM'  },
-      { day: 'Domingos',       hours: '4:00 AM – 7:00 PM'  },
+      { day: 'Lunes a Viernes', hours: '3:00 AM a 10:00 PM' },
+      { day: 'Sábados',        hours: '3:00 AM a 8:00 PM'  },
+      { day: 'Domingos',       hours: '4:00 AM a 7:00 PM'  },
     ],
     services: ['Bus Primera Plus', 'Bus Económico', 'Servicio LEX', 'Encomiendas', 'Boletos en línea', 'Parqueo'],
     serviceIcons: [Bus, Bus, Car, ShoppingBag, Wifi, Car],
@@ -34,7 +34,7 @@ export const AGENCIES = [
   },
   {
     id: 2,
-    name: 'Agencia Litegua — Puerto Barrios',
+    name: 'Agencia Litegua Puerto Barrios',
     shortName: 'Puerto Barrios',
     phone: '7948-2200',
     whatsapp: '50279482200',
@@ -48,9 +48,9 @@ export const AGENCIES = [
       'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&h=300&fit=crop',
     ],
     schedule: [
-      { day: 'Lunes – Viernes', hours: '4:00 AM – 8:00 PM' },
-      { day: 'Sábados',        hours: '4:00 AM – 6:00 PM' },
-      { day: 'Domingos',       hours: '5:00 AM – 5:00 PM' },
+      { day: 'Lunes a Viernes', hours: '4:00 AM a 8:00 PM' },
+      { day: 'Sábados',        hours: '4:00 AM a 6:00 PM' },
+      { day: 'Domingos',       hours: '5:00 AM a 5:00 PM' },
     ],
     services: ['Bus Primera Plus', 'Bus Económico', 'Encomiendas', 'Servicio al Caribe', 'Sala de espera A/C'],
     serviceIcons: [Bus, Bus, ShoppingBag, Car, Coffee],
@@ -59,7 +59,7 @@ export const AGENCIES = [
   },
   {
     id: 3,
-    name: 'Agencia Litegua — Cobán',
+    name: 'Agencia Litegua Cobán',
     shortName: 'Cobán',
     phone: '7952-1300',
     whatsapp: '50279521300',
@@ -73,9 +73,9 @@ export const AGENCIES = [
       'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400&h=300&fit=crop',
     ],
     schedule: [
-      { day: 'Lunes – Viernes', hours: '4:30 AM – 7:00 PM' },
-      { day: 'Sábados',        hours: '4:30 AM – 5:00 PM' },
-      { day: 'Domingos',       hours: '5:00 AM – 4:00 PM' },
+      { day: 'Lunes a Viernes', hours: '4:30 AM a 7:00 PM' },
+      { day: 'Sábados',        hours: '4:30 AM a 5:00 PM' },
+      { day: 'Domingos',       hours: '5:00 AM a 4:00 PM' },
     ],
     services: ['Bus Primera Plus', 'Bus Económico', 'Encomiendas', 'Tours Alta Verapaz', 'Cafetería'],
     serviceIcons: [Bus, Bus, ShoppingBag, Map, Coffee],
@@ -134,7 +134,7 @@ export default function AgencyDetail({ agency, goBack }) {
           alt={agency.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Back button */}
         <div className="absolute top-0 left-0 right-0 flex items-center px-4 pt-12">
