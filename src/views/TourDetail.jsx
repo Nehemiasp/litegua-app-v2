@@ -226,7 +226,7 @@ export default function TourDetail({ tour, goBack, navigate }) {
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 120 }}>
+      <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 130 }}>
 
         {/* ── Content Card ────────────────────────────── */}
         <div className="bg-white" style={{ borderRadius: '24px 24px 0 0', marginTop: -20 }}>
@@ -409,9 +409,9 @@ export default function TourDetail({ tour, goBack, navigate }) {
         </div>
       </div>
 
-      {/* ── Sticky Quote Bar ───────────────────────── */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-100"
-        style={{ padding: '14px 20px 30px' }}>
+      {/* ── Floating Quote Bar ─────────────────────── */}
+      <div className="fixed bottom-4 inset-x-4 mx-auto bg-white border border-slate-100 rounded-3xl shadow-2xl shadow-slate-900/15"
+        style={{ maxWidth: 416, padding: '14px 16px', zIndex: 20, marginBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-extrabold text-slate-900 leading-tight">Solicita tu cotización</p>
