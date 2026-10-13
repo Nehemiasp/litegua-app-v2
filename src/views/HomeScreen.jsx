@@ -249,7 +249,7 @@ export default function HomeScreen({
                 </div>
                 <div className="flex-1 flex flex-col" style={{ padding: '10px 12px 12px' }}>
                   {/* Fixed-height badge row keeps every card aligned, with or without badge */}
-                  <div style={{ height: 20 }}>
+                  <div style={{ height: 26, paddingTop: 2 }}>
                     {tour.badge && (
                       <span className="inline-block text-green-700 font-bold"
                         style={{ fontSize: 9, background: '#dcfce7', padding: '2px 8px', borderRadius: 99 }}>

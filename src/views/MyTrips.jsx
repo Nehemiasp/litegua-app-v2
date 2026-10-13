@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, ArrowRight, Clock, Armchair, Building2 } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 
 // ─── Mock Data ──────────────────────────────────────────────
 const UPCOMING = [
@@ -35,33 +36,28 @@ const PAST = [
   { id: 'LX-20260820-05', date: '20 Ago 2025', from: 'Puerto Barrios', to: 'Ciudad Capital', service: 'Primera Plus', price: 'Q 250.88' },
 ]
 
-// ─── QR SVG ────────────────────────────────────────────────
-function QRCode() {
+// ─── QR ────────────────────────────────────────────────────
+// Real, scannable QR. The payload is plain JSON (no URL), so scanning it
+// just shows the ticket data until a validation endpoint exists.
+function TicketQR({ ticket }) {
+  const payload = JSON.stringify({
+    code: ticket.id,
+    service: ticket.service,
+    route: `${ticket.from} a ${ticket.to}`,
+    date: ticket.date,
+    time: ticket.time,
+    seat: ticket.seat,
+    agency: ticket.agency,
+  })
   return (
-    <svg width="120" height="120" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8"   y="8"   width="36" height="36" rx="4" fill="#16a34a"/>
-      <rect x="14"  y="14"  width="24" height="24" rx="2" fill="white"/>
-      <rect x="18"  y="18"  width="16" height="16" rx="1" fill="#16a34a"/>
-      <rect x="96"  y="8"   width="36" height="36" rx="4" fill="#16a34a"/>
-      <rect x="102" y="14"  width="24" height="24" rx="2" fill="white"/>
-      <rect x="106" y="18"  width="16" height="16" rx="1" fill="#16a34a"/>
-      <rect x="8"   y="96"  width="36" height="36" rx="4" fill="#16a34a"/>
-      <rect x="14"  y="102" width="24" height="24" rx="2" fill="white"/>
-      <rect x="18"  y="106" width="16" height="16" rx="1" fill="#16a34a"/>
-      {[
-        [54,8],[62,8],[70,8],[78,8],[54,16],[70,16],[54,24],[62,24],[78,24],[54,32],[62,32],[70,32],[78,32],
-        [8,54],[16,54],[32,54],[48,54],[56,54],[64,54],[72,54],[80,54],[96,54],[104,54],[112,54],[120,54],[128,54],
-        [8,62],[24,62],[40,62],[56,62],[72,62],[88,62],[104,62],[120,62],
-        [8,70],[16,70],[32,70],[48,70],[64,70],[80,70],[96,70],[112,70],[128,70],
-        [8,78],[24,78],[48,78],[56,78],[72,78],[96,78],[112,78],
-        [8,86],[16,86],[32,86],[40,86],[64,86],[80,86],[88,86],[104,86],[128,86],
-        [48,96],[64,96],[80,96],[96,96],[112,96],[128,96],
-        [56,104],[72,104],[88,104],[104,104],[120,104],
-        [48,112],[64,112],[80,112],[96,112],[112,112],[128,112],
-        [56,120],[72,120],[96,120],[120,120],[128,120],
-        [48,128],[64,128],[88,128],[104,128],[120,128],
-      ].map(([x, y], i) => <rect key={i} x={x} y={y} width="6" height="6" rx="1" fill="#16a34a" />)}
-    </svg>
+    <QRCodeSVG
+      value={payload}
+      size={140}
+      level="M"
+      marginSize={2}
+      fgColor="#15803d"
+      bgColor="#f8fafc"
+    />
   )
 }
 
@@ -142,7 +138,7 @@ function BoardingPass({ ticket }) {
       {/* ─ QR Section ─ */}
       <div className="px-5 pb-6 pt-2 flex flex-col items-center gap-3">
         <div className="bg-slate-50 rounded-2xl p-4 flex flex-col items-center gap-2 w-full">
-          <QRCode />
+          <TicketQR ticket={ticket} />
           <p className="text-[10px] font-mono text-slate-400 tracking-widest">{ticket.id}</p>
         </div>
         <p className="text-[11px] text-slate-400 text-center">
