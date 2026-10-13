@@ -16,6 +16,8 @@ import TourBooking from './views/TourBooking'
 import Auth from './views/Auth'
 import AgencyDetail from './views/AgencyDetail'
 import AgencyMap from './views/AgencyMap'
+import LexQuote from './views/LexQuote'
+import LexAgencies from './views/LexAgencies'
 import LocationPicker from './components/LocationPicker'
 import { seatPrice } from './constants'
 
@@ -31,6 +33,7 @@ const MAIN_VIEWS = ['home', 'explore', 'trips', 'profile']
 
 export default function App() {
   const [currentView, setCurrentView] = useState('auth')
+  const [prevView, setPrevView] = useState(null)
   const [activeTab, setActiveTab] = useState('bus')
   const [selectedSeats, setSelectedSeats] = useState([])
   const [passengerData, setPassengerData] = useState({})
@@ -49,6 +52,7 @@ export default function App() {
   const totalAmount = totalBoletos
 
   const navigate = (view) => {
+    setPrevView(currentView)
     setCurrentView(view)
   }
 
@@ -61,7 +65,10 @@ export default function App() {
       confirmation: 'home',
       tourDetail: 'explore',
       tourBooking: 'tourDetail',
-      agencyDetail: 'home',
+      lex: 'home',
+      lexQuote: prevView === 'home' ? 'home' : 'lex',
+      lexAgencies: 'lex',
+      agencyDetail: ['agencyMap', 'lexAgencies'].includes(prevView) ? prevView : 'home',
       agencyMap: 'home',
     }
     setCurrentView(backMap[currentView] || 'home')
@@ -121,6 +128,8 @@ export default function App() {
       case 'trips':        return <MyTrips navigate={navigate} goBack={goBack} />
       case 'explore':      return <Explore navigate={navigate} goBack={goBack} onSelectTour={setSelectedTour} />
       case 'lex':          return <Lex navigate={navigate} goBack={goBack} />
+      case 'lexQuote':     return <LexQuote {...props} />
+      case 'lexAgencies':  return <LexAgencies goBack={goBack} navigate={navigate} onSelectAgency={setSelectedAgency} />
       case 'profile':      return <Profile navigate={navigate} goBack={goBack} />
       case 'tourDetail':   return <TourDetail tour={selectedTour} goBack={goBack} navigate={navigate} />
       case 'tourBooking':  return <TourBooking tour={selectedTour} goBack={goBack} navigate={navigate} />

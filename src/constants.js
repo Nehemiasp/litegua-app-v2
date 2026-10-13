@@ -29,3 +29,7 @@ export const UPPER_DECK_FIRST_SEAT = 41
 
 export const seatDeck = (seatNum) => (seatNum >= UPPER_DECK_FIRST_SEAT ? 'upper' : 'lower')
 export const seatPrice = (seatNum) => DECK_PRICES[seatDeck(seatNum)]
+
+// LEX (encomiendas)
+export const LEX_PACKAGE_TYPES = ['Documentos', 'Paquete pequeño', 'Caja mediana', 'Caja grande', 'Frágil']
+export const LEX_WEIGHTS = ['Menos de 1 kg', '1 a 5 kg', '5 a 15 kg', 'Más de 15 kg']
