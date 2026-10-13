@@ -241,19 +241,22 @@ export default function HomeScreen({
                 key={tour.id}
                 whileHover={{ y: -2 }}
                 onClick={() => { onSelectTour(tour); navigate('tourDetail') }}
-                className="bg-white border border-slate-100 overflow-hidden cursor-pointer active:scale-[0.98] transition-transform"
+                className="bg-white border border-slate-100 overflow-hidden cursor-pointer active:scale-[0.98] transition-transform flex flex-col"
                 style={{ width: 200, borderRadius: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', flexShrink: 0 }}
               >
                 <div className="overflow-hidden" style={{ height: 130 }}>
                   <img src={tour.image} alt={tour.name} className="w-full h-full object-cover" loading="lazy" />
                 </div>
-                <div style={{ padding: '10px 12px 12px' }}>
-                  {tour.badge && (
-                    <span className="inline-block text-green-700 font-bold mb-1"
-                      style={{ fontSize: 9, background: '#dcfce7', padding: '2px 8px', borderRadius: 99 }}>
-                      {tour.badge}
-                    </span>
-                  )}
+                <div className="flex-1 flex flex-col" style={{ padding: '10px 12px 12px' }}>
+                  {/* Fixed-height badge row keeps every card aligned, with or without badge */}
+                  <div style={{ height: 20 }}>
+                    {tour.badge && (
+                      <span className="inline-block text-green-700 font-bold"
+                        style={{ fontSize: 9, background: '#dcfce7', padding: '2px 8px', borderRadius: 99 }}>
+                        {tour.badge}
+                      </span>
+                    )}
+                  </div>
                   <h3 className="text-sm font-bold text-slate-900 leading-tight line-clamp-2">{tour.name}</h3>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center gap-1 text-slate-400">
@@ -265,12 +268,14 @@ export default function HomeScreen({
                       <span className="text-xs font-bold text-slate-700">{tour.rating}</span>
                     </div>
                   </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onSelectTour(tour); navigate('tourBooking') }}
-                    className="w-full mt-2.5 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold transition-colors active:scale-[0.98]"
-                  >
-                    Cotizar
-                  </button>
+                  <div className="mt-auto pt-3">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onSelectTour(tour); navigate('tourBooking') }}
+                      className="w-full py-2 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold transition-colors active:scale-[0.98]"
+                    >
+                      Cotizar
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             ))}
